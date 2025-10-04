@@ -122,7 +122,7 @@ export async function middleware(request: NextRequest) {
     "img-src 'self' data: blob: https://*.blob.vercel-storage.com" + (isDev ? " http://localhost:*" : ""),
     "font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com",
     `connect-src 'self' https://v0.dev https://v0.app https://api.v0.dev https://api.v0.app https://v0chat.vercel.sh https://vercel.live/ https://vercel.com https://*.pusher.com/ https://blob.vercel-storage.com https://*.blob.vercel-storage.com https://blobs.vusercontent.net wss://*.pusher.com/ https://fides-vercel.us.fides.ethyca.com/api/v1/ https://cdn-api.ethyca.com/location https://privacy-vercel.us.fides.ethyca.com/api/v1/ https://api.getkoala.com https://*.sentry.io/api/ https://huggingface.co/onnx-community/ https://cas-bridge.xethub.hf.co/xet-bridge-us/ https://cdn.jsdelivr.net/npm/@huggingface/${isDev ? ' ws: http://localhost:*' : ''}`,
-    "frame-ancestors 'none'",
+    isV0Environment ? "frame-ancestors 'self' https://v0.dev https://*.v0.dev https://v0.app https://*.v0.app https://vercel.live https://*.vercel.app" : "frame-ancestors 'none'",
     "frame-src 'self' https://www.google.com https://maps.google.com https://www.youtube.com https://v0.dev https://v0.app",
     "worker-src 'self' blob:",
     "base-uri 'none'"
