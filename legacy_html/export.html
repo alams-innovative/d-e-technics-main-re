@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Presence & Export Markets - D.E. Technics</title>
+
+    <!-- Primary Meta Tags -->
+    <title>Export – D.E. Technics | Global Machinery Exports</title>
+    <meta name="description" content="D.E. Technics exports packaging machines to 25+ countries worldwide, including HFFS, wafer lines, industrial mixers, with reliable after-sales support.">
+    <meta name="keywords" content="export machinery, global export, packaging machines export, HFFS export, wafer lines export, industrial mixers export, after-sales support, D.E. Technics">
+    
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://detechnics.com/export.html">
+    <meta property="og:title" content="Export – D.E. Technics | Global Machinery Exports">
+    <meta property="og:description" content="D.E. Technics exports packaging machines to 25+ countries worldwide, including HFFS, wafer lines, industrial mixers, with reliable after-sales support.">
+    <meta property="og:image" content="https://detechnics.com/images/favicon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://detechnics.com/export.html">
+    <meta property="twitter:title" content="Export – D.E. Technics | Global Machinery Exports">
+    <meta property="twitter:description" content="D.E. Technics exports packaging machines to 25+ countries worldwide, including HFFS, wafer lines, industrial mixers, with reliable after-sales support.">
+    <meta property="twitter:image" content="https://detechnics.com/images/favicon.png">
+
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css" >
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #c8a415;
+            --secondary-color: #333333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #666666;
+            --white: #ffffff;
+            --black: #000000;
+            --blue: #1e5799;
+            --gold: #d4af37;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Global Map Section */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .global-map-container {
+            position: relative;
+            border: 5px solid var(--gold);
+            margin: 30px auto;
+            max-width: 1000px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .global-map-header {
+            background-color: var(--white);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .global-map-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 0;
+        }
+
+        .world-map-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 50%; /* Aspect ratio */
+            overflow: hidden;
+        }
+
+        .world-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .world-map path {
+            fill: #d4d4d4;
+            stroke: #ffffff;
+            stroke-width: 0.5;
+            transition: fill 0.3s;
+        }
+
+        .world-map .country {
+            cursor: pointer;
+        }
+
+        .world-map .country:hover {
+            fill: #b0b0b0;
+        }
+
+        .world-map .country.active {
+            fill: var(--primary-color);
+        }
+
+        .country-tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+
+        .country-flags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background-color: var(--blue);
+        }
+
+        .flag-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .flag-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .flag-img {
+            width: 40px;
+            height: 25px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+
+        .flag-name {
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        /* Export Markets Section */
+        .export-markets {
+            background-color: var(--light-gray);
+            padding: 60px 0;
+        }
+
+        .market-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .regions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .region-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .region-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .region-header {
+            background-color: var(--blue);
+            color: var(--white);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .region-title {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .region-body {
+            padding: 20px;
+        }
+
+        .region-countries {
+            list-style: none;
+        }
+
+        .region-countries li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--medium-gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .region-countries li:last-child {
+            border-bottom: none;
+        }
+
+        .country-flag-small {
+            width: 24px;
+            height: 15px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Export Products Section */
+        .export-products {
+            padding: 60px 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-countries {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .product-country {
+            background-color: var(--light-gray);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-header h2 {
+                font-size: 30px;
+            }
+
+            .section-header p {
+                font-size: 16px;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .world-map-container {
+                padding-bottom: 70%; /* Adjust aspect ratio for mobile */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-header h2 {
+                font-size: 24px;
+            }
+
+            .market-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .stat-item {
+                width: 100%;
+            }
+
+            .world-map-container {
+                padding-bottom: 100%; /* Adjust aspect ratio for small mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Top Bar -->
+     <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span>Landline: <a href="tel:+924235272601-02">+92 42 35272601-02</a></span>
+                <span>Contact: <a href="tel:+923330184756">+92-333-0184756</a></span>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@DETechnicsPK" target="_blank" class="youtube-icon">
+                    <i class="fab fa-youtube" style="color: #FF0000;"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="D.E. Technics Logo">
+                    <!-- <div class="logo-text">
+                        <h1>D.E. Technics</h1>
+                        <p>(Pvt) Limited</p>
+                    </div> -->
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="about.html">About</a>
+                    </li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="wafer-lines.html">Wafer Lines</a></li>
+                    <li><a href="export.html" class="active">Export</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="clients.html">Our Clients</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="wafer-lines.html">Wafer Lines</a></li>
+            <li><a href="export.html">Export</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="clients.html">Our Clients</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+            <div class="container">
+                <h1>Export </h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <span>Export </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Map Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Global Presence</h2>
+                <p>D.E. Technics has established a strong global presence, exporting high-quality machinery and equipment to over 25 countries across 5 continents.</p>
+            </div>
+            
+            <div class="global-map-container">
+                <div class="global-map-header">
+                    <h3 class="global-map-title">GLOBAL PRESENCE</h3>
+                </div>
+                
+                <div class="world-map-container">
+                    <div id="country-tooltip" class="country-tooltip"></div>
+                    
+                    <svg class="world-map" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
+                        <!-- World map image will be inserted by JavaScript -->
+                    </svg>
+                </div>
+                
+                <div class="country-flags">
+                    <!-- Row 1 -->
+                    <div class="flag-item" data-country="Afghanistan">
+                        <img src="https://flagcdn.com/w40/af.png" alt="Afghanistan Flag" class="flag-img">
+                        <span class="flag-name">AFGHANISTAN</span>
+                    </div>
+                    <div class="flag-item" data-country="Ghana">
+                        <img src="https://flagcdn.com/w40/gh.png" alt="Ghana Flag" class="flag-img">
+                        <span class="flag-name">GHANA</span>
+                    </div>
+                    <div class="flag-item" data-country="Malaysia">
+                        <img src="https://flagcdn.com/w40/my.png" alt="Malaysia Flag" class="flag-img">
+                        <span class="flag-name">MALAYSIA</span>
+                    </div>
+                    <div class="flag-item" data-country="Russia">
+                        <img src="https://flagcdn.com/w40/ru.png" alt="Russia Flag" class="flag-img">
+                        <span class="flag-name">RUSSIA</span>
+                    </div>
+                    <div class="flag-item" data-country="Tanzania">
+                        <img src="https://flagcdn.com/w40/tz.png" alt="Tanzania Flag" class="flag-img">
+                        <span class="flag-name">TANZANIA</span>
+                    </div>
+                    <div class="flag-item" data-country="United Kingdom">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="UK Flag" class="flag-img">
+                        <span class="flag-name">UK</span>
+                    </div>
+                    
+                    <!-- Row 2 -->
+                    <div class="flag-item" data-country="Bahrain">
+                        <img src="https://flagcdn.com/w40/bh.png" alt="Bahrain Flag" class="flag-img">
+                        <span class="flag-name">BAHRAIN</span>
+                    </div>
+                    <div class="flag-item" data-country="Haiti">
+                        <img src="https://flagcdn.com/w40/ht.png" alt="Haiti Flag" class="flag-img">
+                        <span class="flag-name">HAITI</span>
+                    </div>
+                    <div class="flag-item" data-country="Mozambique">
+                        <img src="https://flagcdn.com/w40/mz.png" alt="Mozambique Flag" class="flag-img">
+                        <span class="flag-name">MOZAMBIQUE</span>
+                    </div>
+                    <div class="flag-item" data-country="Saudi Arabia">
+                        <img src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia Flag" class="flag-img">
+                        <span class="flag-name">SAUDI ARABIA</span>
+                    </div>
+                    <div class="flag-item" data-country="Turkmenistan">
+                        <img src="https://flagcdn.com/w40/tm.png" alt="Turkmenistan Flag" class="flag-img">
+                        <span class="flag-name">TURKMENISTAN</span>
+                    </div>
+                    <div class="flag-item" data-country="United States">
+                        <img src="https://flagcdn.com/w40/us.png" alt="USA Flag" class="flag-img">
+                        <span class="flag-name">USA</span>
+                    </div>
+                    
+                    <!-- Row 3 -->
+                    <div class="flag-item" data-country="Bangladesh">
+                        <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh Flag" class="flag-img">
+                        <span class="flag-name">BANGLADESH</span>
+                    </div>
+                    <div class="flag-item" data-country="Indonesia">
+                        <img src="https://flagcdn.com/w40/id.png" alt="Indonesia Flag" class="flag-img">
+                        <span class="flag-name">INDONESIA</span>
+                    </div>
+                    <div class="flag-item" data-country="Oman">
+                        <img src="https://flagcdn.com/w40/om.png" alt="Oman Flag" class="flag-img">
+                        <span class="flag-name">OMAN</span>
+                    </div>
+                    <div class="flag-item" data-country="South Africa">
+                        <img src="https://flagcdn.com/w40/za.png" alt="South Africa Flag" class="flag-img">
+                        <span class="flag-name">SOUTH AFRICA</span>
+                    </div>
+                    <div class="flag-item" data-country="United Arab Emirates">
+                        <img src="https://flagcdn.com/w40/ae.png" alt="UAE Flag" class="flag-img">
+                        <span class="flag-name">UAE</span>
+                    </div>
+                    <div class="flag-item" data-country="Zambia">
+                        <img src="https://flagcdn.com/w40/zm.png" alt="Zambia Flag" class="flag-img">
+                        <span class="flag-name">ZAMBIA</span>
+                    </div>
+                    
+                    <!-- Row 4 -->
+                    <div class="flag-item" data-country="Canada">
+                        <img src="https://flagcdn.com/w40/ca.png" alt="Canada Flag" class="flag-img">
+                        <span class="flag-name">CANADA</span>
+                    </div>
+                    <div class="flag-item" data-country="Kenya">
+                        <img src="https://flagcdn.com/w40/ke.png" alt="Kenya Flag" class="flag-img">
+                        <span class="flag-name">KENYA</span>
+                    </div>
+                    <div class="flag-item" data-country="Qatar">
+                        <img src="https://flagcdn.com/w40/qa.png" alt="Qatar Flag" class="flag-img">
+                        <span class="flag-name">QATAR</span>
+                    </div>
+                    <div class="flag-item" data-country="Sri Lanka">
+                        <img src="https://flagcdn.com/w40/lk.png" alt="Sri Lanka Flag" class="flag-img">
+                        <span class="flag-name">SRI LANKA</span>
+                    </div>
+                    <div class="flag-item" data-country="Uganda">
+                        <img src="https://flagcdn.com/w40/ug.png" alt="Uganda Flag" class="flag-img">
+                        <span class="flag-name">UGANDA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Export Markets Section -->
+    <section class="export-markets">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Export Markets</h2>
+                <p>We have successfully delivered and installed our machinery and equipment in diverse markets across the globe, ensuring reliable after-sales service and support to all our international clients.</p>
+            </div>
+            
+            <div class="market-stats">
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Continents</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2500+</div>
+                    <div class="stat-label">Installations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+            
+            <div class="regions-container">
+                <div class="region-card">
+                    <div class="region-header">
+                        <h3 class="region-title">Middle East</h3>
+                    </div>
+                    <div class="region-body">
+                        <ul class="region-countries">
+                            <li>
+                                <img src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia Flag" class="country-flag-small">
+                                Saudi Arabia
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/ae.png" alt="UAE Flag" class="country-flag-small">
+                                United Arab Emirates
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/qa.png" alt="Qatar Flag" class="country-flag-small">
+                                Qatar
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/om.png" alt="Oman Flag" class="country-flag-small">
+                                Oman
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/bh.png" alt="Bahrain Flag" class="country-flag-small">
+                                Bahrain
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="region-card">
+                    <div class="region-header">
+                        <h3 class="region-title">South Asia</h3>
+                    </div>
+                    <div class="region-body">
+                        <ul class="region-countries">
+                            <li>
+                                <img src="https://flagcdn.com/w40/in.png" alt="India Flag" class="country-flag-small">
+                                India
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh Flag" class="country-flag-small">
+                                Bangladesh
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/lk.png" alt="Sri Lanka Flag" class="country-flag-small">
+                                Sri Lanka
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/pk.png" alt="Pakistan Flag" class="country-flag-small">
+                                Pakistan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="region-card">
+                    <div class="region-header">
+                        <h3 class="region-title">Africa</h3>
+                    </div>
+                    <div class="region-body">
+                        <ul class="region-countries">
+                            <li>
+                                <img src="https://flagcdn.com/w40/za.png" alt="South Africa Flag" class="country-flag-small">
+                                South Africa
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/ke.png" alt="Kenya Flag" class="country-flag-small">
+                                Kenya
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/tz.png" alt="Tanzania Flag" class="country-flag-small">
+                                Tanzania
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/gh.png" alt="Ghana Flag" class="country-flag-small">
+                                Ghana
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/ug.png" alt="Uganda Flag" class="country-flag-small">
+                                Uganda
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/zm.png" alt="Zambia Flag" class="country-flag-small">
+                                Zambia
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="region-card">
+                    <div class="region-header">
+                        <h3 class="region-title">Southeast Asia</h3>
+                    </div>
+                    <div class="region-body">
+                        <ul class="region-countries">
+                            <li>
+                                <img src="https://flagcdn.com/w40/my.png" alt="Malaysia Flag" class="country-flag-small">
+                                Malaysia
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/id.png" alt="Indonesia Flag" class="country-flag-small">
+                                Indonesia
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/th.png" alt="Thailand Flag" class="country-flag-small">
+                                Thailand
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="region-card">
+                    <div class="region-header">
+                        <h3 class="region-title">North America</h3>
+                    </div>
+                    <div class="region-body">
+                        <ul class="region-countries">
+                            <li>
+                                <img src="https://flagcdn.com/w40/us.png" alt="USA Flag" class="country-flag-small">
+                                United States
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/ca.png" alt="Canada Flag" class="country-flag-small">
+                                Canada
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="region-card">
+                    <div class="region-header">
+                        <h3 class="region-title">Europe & Central Asia</h3>
+                    </div>
+                    <div class="region-body">
+                        <ul class="region-countries">
+                            <li>
+                                <img src="https://flagcdn.com/w40/gb.png" alt="UK Flag" class="country-flag-small">
+                                United Kingdom
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/ru.png" alt="Russia Flag" class="country-flag-small">
+                                Russia
+                            </li>
+                            <li>
+                                <img src="https://flagcdn.com/w40/tm.png" alt="Turkmenistan Flag" class="country-flag-small">
+                                Turkmenistan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <div style="text-align: center; margin-top: 40px;">
+    <a href="https://wa.me/923330184756" target="_blank" style="display: inline-block; background-color: #25D366; color: white; font-size: 16px; padding: 12px 25px; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: background-color 0.3s;">
+        <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Chat with Us on WhatsApp
+    </a>
+</div>
+        </div>
+    </section>
+
+    <!-- Export Products Section -->
+    <section class="export-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Export Products</h2>
+                <p>Our range of high-quality machinery and equipment is exported to customers worldwide, meeting international standards and specifications.</p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="images/product/DE-210.jpg" alt="Horizontal Form Fill Seal Machine" class="product-img">
+                    <div class="product-body">
+                        <h3 class="product-title">Horizontal Form Fill Seal Machines</h3>
+                        <p>Our HFFS machines are exported to multiple countries for packaging biscuits, chocolates, and confectionery products.</p>
+                        <div class="product-countries">
+                            <span class="product-country">Saudi Arabia</span>
+                            <span class="product-country">UAE</span>
+                            <span class="product-country">UK</span>
+                            <span class="product-country">Malaysia</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/product/Waffer-Lines.jpg" alt="Wafer Lines" class="product-img">
+                    <div class="product-body">
+                        <h3 class="product-title">Wafer Production Lines</h3>
+                        <p>Complete wafer production lines for manufacturing cream-filled wafers, exported to confectionery manufacturers globally.</p>
+                        <div class="product-countries">
+                            <span class="product-country">Bangladesh</span>
+                            <span class="product-country">Kenya</span>
+                            <span class="product-country">Indonesia</span>
+                            <span class="product-country">Zambia</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/product/DE-300.jpg" alt="Biscuit Wrapping Machine" class="product-img">
+                    <div class="product-body">
+                        <h3 class="product-title">Biscuit Wrapping Machines</h3>
+                        <p>High-speed biscuit wrapping machines for sandwich biscuits and cream biscuits, exported to food processing companies.</p>
+                        <div class="product-countries">
+                            <span class="product-country">Sri Lanka</span>
+                            <span class="product-country">Tanzania</span>
+                            <span class="product-country">Qatar</span>
+                            <span class="product-country">USA</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/product/Turbo-Mixer.jpg" alt="Industrial Mixer" class="product-img">
+                    <div class="product-body">
+                        <h3 class="product-title">Industrial Mixers</h3>
+                        <p>Turbo mixers and cream mixers for food processing applications, exported to bakery and confectionery industries.</p>
+                        <div class="product-countries">
+                            <span class="product-country">Oman</span>
+                            <span class="product-country">Uganda</span>
+                            <span class="product-country">Russia</span>
+                            <span class="product-country">Canada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+   <!-- Footer -->
+   <footer class="main-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Company Info -->
+            <div class="footer-col">
+                <h3>D.E. Technics</h3>
+                <p>D.E. Technics is a leading manufacturer of advanced machinery and equipment, dedicated to delivering innovative and high-quality solutions for various industries.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/detechnicspk"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@DETechnicsPK"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Glaxo Town, 20th Km, Ferozepur Road Lahore-54760, Pakistan</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>+92-333-0184756</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@detechnics.com</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Newsletter -->
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter to receive updates on our latest products and offers.</p>
+                <form class="newsletter-form">
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 D.E. Technics (Pvt) Limited. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Button -->
+<a href="https://wa.me/923330184756" class="whatsapp-btn">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+
+    <script>
+        // World map data - simplified version
+        const worldMapData = {
+            mapImage: {
+                src: "images/map.jpg",
+                height: 400,
+                width: 900,
+                text: "World Map",
+                alt: "D.E. Technics Global Presence Map",
+                class: "world-map-image"
+            }
+        };
+
+        // Function to initialize the map
+        function initMap() {
+            const svg = document.querySelector('.world-map');
+            
+            // Add the background map image
+            const mapImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+            mapImage.setAttribute('href', worldMapData.mapImage.src);
+            mapImage.setAttribute('x', '50');
+            mapImage.setAttribute('y', '50');
+            mapImage.setAttribute('width', '900');
+            mapImage.setAttribute('height', '400');
+            svg.appendChild(mapImage);
+        }
+
+        // Initialize the map when the page loads
+        window.addEventListener('load', initMap);
+
+        // Flag item click handler
+        document.querySelectorAll('.flag-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const countryName = this.getAttribute('data-country');
+                // Highlight the country on the map (visual feedback only)
+                // Since we've removed pins, we'll just scroll to the map
+                const mapContainer = document.querySelector('.world-map-container');
+                mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            const nav = document.querySelector('.main-nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+/* Quote Form Styles */
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #343a40;
+  --text-color: #495057;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.quote-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.quote-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.quote-header h1 {
+  color: var(--secondary-color);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.quote-header p {
+  color: var(--text-color);
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.quote-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+textarea.form-control {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.form-check-input {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.form-check-label {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 12px 30px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.form-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form-footer p {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-top: 15px;
+}
+
+/* Form validation styles */
+.form-control.is-invalid {
+  border-color: var(--error-color);
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  font-size: 14px;
+  color: var(--error-color);
+}
+
+/* Success message */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .quote-container {
+    padding: 20px;
+    margin: 30px 15px;
+  }
+
+  .quote-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+}

@@ -1,26 +1,111 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
+import { Geist, Geist_Mono } from "next/font/google"
+import { headers } from "next/headers"
+import { companyData, generateOrganizationSchema } from "@/lib/structured-data"
+import { generateOrganizationEnhancedSchema } from "@/components/enhanced-structured-data"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { Toaster } from "@/components/ui/sonner"
+import ErrorBoundary from "@/components/error-boundary"
+import FabBackToTop from "@/components/FabBackToTop"
+import FabWhatsApp from "@/components/FabWhatsApp"
+import PublicOnly from "@/components/common/public-only"
 import "./globals.css"
+import 'react-phone-number-input/style.css'
+
+const geistSans = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geist-sans",
+})
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geist-mono",
+})
 
 export const metadata: Metadata = {
-  title: "D.E. Technics - Packaging Machinery Solutions",
-  description: "Advanced packaging machinery for food & beverage, confectionery, and pharmaceutical industries",
+  metadataBase: new URL("https://detechnics.com"),
+  title: "Horizontal Form Fill Seal Machine | HFFS Packaging Machines Pakistan | D.E. Technics",
+  description:
+    "Leading horizontal form fill seal machine manufacturer in Pakistan. HFFS machines, wafer lines manufacturer, biscuit packaging machines with 40+ years expertise. Premium packaging solutions in Pakistan.",
+  keywords:
+    "horizontal form fill seal machine, HFFS machine, wafer lines manufacturer, packaging machines Pakistan, biscuit packaging machine, form fill seal machine, packaging machinery supplier, automatic packaging machine, food packaging equipment, confectionery packaging machines, pharmaceutical packaging, D.E. Technics, packaging equipment manufacturer, packaging lines, vacuum packaging machine, flow wrapper machine, flow wrapper, sachet packaging, sachet packing, seal machine, pack machine, heat seal machine, wrapper machine, heat and seal machine, GulfoodManufacturing, DubaiExhibition, ManufacturingInnovation, FoodIndustry, PackagingSolutions, SAMAEngineering, PakistanPavilion, MeetUsInDubai, GlobalExpo, PakistanEntrepreneursAward, AwardWinner, lahoreengineering, packingmachinery, packing, packingmachine, packaging, packagingmachine, wrappingmachinery, wrapping, biscuits, soap, cake, BeveragePackaging, DairyProcessing, PackagingMachinery, MetalDetectors, XRayInspection, QualityAssurance, millipack, packagingpakistan, packagingindustry, industrialprinters, foodprocessing, Strapack, PackagingStraps, SecureShipping, DurableStraps, ReliablePackaging, PrintedStraps, CustomBranding, honeypackaging, FoodGrade, SmallBusiness, honeystorage, LeakProof, Customizable, BrandingOpportunity, NewBusiness, Startups, WomenInBusiness",
   generator: "v0.app",
+  openGraph: {
+    type: "website",
+    url: "https://detechnics.com/",
+    title: "Horizontal Form Fill Seal Machine | HFFS Packaging Machines Pakistan | D.E. Technics",
+    description:
+      "Leading horizontal form fill seal machine manufacturer in Pakistan. HFFS machines, wafer lines manufacturer, biscuit packaging machines with 40+ years expertise.",
+    images: [
+      {
+        url: "https://detechnics.com/images/hero1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "D.E. Technics Packaging Machines",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Horizontal Form Fill Seal Machine | HFFS Packaging Machines Pakistan | D.E. Technics",
+    description:
+      "Leading horizontal form fill seal machine manufacturer in Pakistan. HFFS machines, wafer lines manufacturer, biscuit packaging machines with 40+ years expertise.",
+    images: ["https://detechnics.com/images/hero1.jpg"],
+  },
 }
 
-export default function RootLayout({
+function logError(error: Error, errorInfo: React.ErrorInfo) {
+  // In production, you would send this to your error tracking service
+  // like Sentry, LogRocket, or Bugsnag
+  if (process.env.NODE_ENV === "production") {
+    console.error("Application Error:", error, errorInfo)
+    // Example: Sentry.captureException(error, { extra: errorInfo })
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Read CSP nonce set in middleware for strict CSP option
+  const nonce = (await headers()).get('x-csp-nonce') || undefined
   return (
-    <html lang="en">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-sans">
+        <script 
+          nonce={nonce}
+          type="application/ld+json" 
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(generateOrganizationEnhancedSchema()) }} 
+        />
+        <ErrorBoundary>
+          {/* TopBar removed as per request */}
+          <Suspense fallback={null}>{children}</Suspense>
+          <PublicOnly>
+            <FabBackToTop />
+            <FabWhatsApp />
+          </PublicOnly>
+        </ErrorBoundary>
+        {/* Global toast provider */}
+        <Toaster richColors closeButton />
         <Analytics />
       </body>
     </html>

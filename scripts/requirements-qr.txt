@@ -1,0 +1,4 @@
+# Minimal dependencies to extract and crop QR codes from PDFs (2025)
+PyMuPDF==1.24.10
+opencv-python==4.10.0.84
+numpy==2.0.2
