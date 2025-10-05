@@ -15,11 +15,11 @@
     "indexnow": "node indexnow.js",
     "indexnow:all": "node indexnow.js --all",
     "indexnow:setup": "node indexnow.js --setup",
+    "postinstall": "node scripts/copy-export-flags.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "next start",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "postinstall": "node scripts/copy-export-flags.js"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",
