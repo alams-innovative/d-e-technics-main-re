@@ -18,7 +18,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "next start",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "postinstall": "node scripts/copy-export-flags.js"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",

@@ -2,7 +2,7 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import Breadcrumb from "@/components/breadcrumb"
 import { COMMON_BREADCRUMBS } from "@/lib/breadcrumb-utils"
-import FlagIcon from "./flag-icon"
+import FlagImg from "./flag-img"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -248,7 +248,7 @@ export default function ExportPage() {
             <div className="flex flex-wrap justify-center gap-2 p-5 bg-blue-800">
               {flagCountries.map((country, index) => (
                 <div key={index} className="flex flex-col items-center w-24 mb-4 cursor-pointer transform transition-transform hover:-translate-y-1">
-                  <FlagIcon name={country.name} className="w-10 h-6 mb-1 border border-gray-300" />
+                  <FlagImg name={country.name} className="w-10 h-6 mb-1 border border-gray-300" width={40} height={26} />
                   <span className="text-xs text-center text-white font-medium leading-tight">
                     {country.name === "United Kingdom" ? "UK" : 
                      country.name === "United States" ? "USA" :
@@ -301,7 +301,7 @@ export default function ExportPage() {
                   <ul className="space-y-2">
                     {region.countries.map((country, countryIndex) => (
                       <li key={countryIndex} className="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                        <FlagIcon name={country.name} className="w-6 h-4 mr-3 border border-gray-300" />
+                        <FlagImg name={country.name} className="w-6 h-4 mr-3 border border-gray-300" width={24} height={16} />
                         <span className="text-gray-800">{country.name}</span>
                       </li>
                     ))}
