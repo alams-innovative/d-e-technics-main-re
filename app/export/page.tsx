@@ -2,7 +2,34 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import Breadcrumb from "@/components/breadcrumb"
 import { COMMON_BREADCRUMBS } from "@/lib/breadcrumb-utils"
-import CountryFlag from "@/components/country-flag"
+import type { ComponentType } from "react"
+// Import only the SVG flags used on this page
+import AF from "country-flag-icons/react/3x2/AF" // Afghanistan
+import GH from "country-flag-icons/react/3x2/GH" // Ghana
+import MY from "country-flag-icons/react/3x2/MY" // Malaysia
+import RU from "country-flag-icons/react/3x2/RU" // Russia
+import TZ from "country-flag-icons/react/3x2/TZ" // Tanzania
+import GB from "country-flag-icons/react/3x2/GB" // United Kingdom
+import BH from "country-flag-icons/react/3x2/BH" // Bahrain
+import HT from "country-flag-icons/react/3x2/HT" // Haiti
+import MZ from "country-flag-icons/react/3x2/MZ" // Mozambique
+import SA from "country-flag-icons/react/3x2/SA" // Saudi Arabia
+import TM from "country-flag-icons/react/3x2/TM" // Turkmenistan
+import US from "country-flag-icons/react/3x2/US" // United States
+import BD from "country-flag-icons/react/3x2/BD" // Bangladesh
+import ID from "country-flag-icons/react/3x2/ID" // Indonesia
+import OM from "country-flag-icons/react/3x2/OM" // Oman
+import ZA from "country-flag-icons/react/3x2/ZA" // South Africa
+import AE from "country-flag-icons/react/3x2/AE" // United Arab Emirates
+import ZM from "country-flag-icons/react/3x2/ZM" // Zambia
+import CA from "country-flag-icons/react/3x2/CA" // Canada
+import KE from "country-flag-icons/react/3x2/KE" // Kenya
+import QA from "country-flag-icons/react/3x2/QA" // Qatar
+import LK from "country-flag-icons/react/3x2/LK" // Sri Lanka
+import UG from "country-flag-icons/react/3x2/UG" // Uganda
+import IN from "country-flag-icons/react/3x2/IN" // India
+import PK from "country-flag-icons/react/3x2/PK" // Pakistan
+import TH from "country-flag-icons/react/3x2/TH" // Thailand
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -26,6 +53,36 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://detechnics.com/export",
   },
+}
+
+// Map country names to their corresponding SVG flag components
+const FlagByName: Record<string, ComponentType<{ className?: string; title?: string }>> = {
+  Afghanistan: AF,
+  Ghana: GH,
+  Malaysia: MY,
+  Russia: RU,
+  Tanzania: TZ,
+  "United Kingdom": GB,
+  Bahrain: BH,
+  Haiti: HT,
+  Mozambique: MZ,
+  "Saudi Arabia": SA,
+  Turkmenistan: TM,
+  "United States": US,
+  Bangladesh: BD,
+  Indonesia: ID,
+  Oman: OM,
+  "South Africa": ZA,
+  "United Arab Emirates": AE,
+  Zambia: ZM,
+  Canada: CA,
+  Kenya: KE,
+  Qatar: QA,
+  "Sri Lanka": LK,
+  Uganda: UG,
+  India: IN,
+  Pakistan: PK,
+  Thailand: TH,
 }
 
 // Exact countries from legacy export page
@@ -240,16 +297,19 @@ export default function ExportPage() {
                 alt="D.E. Technics Global Presence Map" 
                 fill
                 className="object-cover"
+                unoptimized
               />
             </div>
             
             <div className="flex flex-wrap justify-center gap-2 p-5 bg-blue-800">
               {flagCountries.map((country, index) => (
                 <div key={index} className="flex flex-col items-center w-24 mb-4 cursor-pointer transform transition-transform hover:-translate-y-1">
-                  <CountryFlag 
-                    phoneCode={country.phoneCode} 
-                    className="w-10 h-6 mb-1 border border-gray-300"
-                  />
+                  {(() => {
+                    const Flag = FlagByName[country.name]
+                    return Flag ? (
+                      <Flag title={country.name} className="w-10 h-6 mb-1 border border-gray-300" />
+                    ) : null
+                  })()}
                   <span className="text-xs text-center text-white font-medium leading-tight">
                     {country.name === "United Kingdom" ? "UK" : 
                      country.name === "United States" ? "USA" :
@@ -302,10 +362,12 @@ export default function ExportPage() {
                   <ul className="space-y-2">
                     {region.countries.map((country, countryIndex) => (
                       <li key={countryIndex} className="flex items-center py-2 border-b border-gray-200 last:border-b-0">
-                        <CountryFlag 
-                          phoneCode={country.phoneCode} 
-                          className="w-6 h-4 mr-3 border border-gray-300"
-                        />
+                        {(() => {
+                          const Flag = FlagByName[country.name]
+                          return Flag ? (
+                            <Flag title={country.name} className="w-6 h-4 mr-3 border border-gray-300" />
+                          ) : null
+                        })()}
                         <span className="text-gray-800">{country.name}</span>
                       </li>
                     ))}
