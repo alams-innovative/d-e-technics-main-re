@@ -50,6 +50,32 @@ function getCorsAllowedOrigins(isDev: boolean): string[] {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const referer = request.headers.get('referer') || ''
+  
+  // Environment-based early optimization
+  const deploymentEnv = process.env.DEPLOYMENT_ENV || 'production'
+  const isV0Environment = deploymentEnv === 'v0'
+  
+  // Skip expensive operations for v0 environment
+  if (isV0Environment) {
+    // Ultra-fast path for v0: minimal processing
+    const response = NextResponse.next()
+    
+    // Only set essential CORS for API routes in v0
+    if (pathname.startsWith('/api/')) {
+      const origin = request.headers.get('origin')
+      response.headers.set('Access-Control-Allow-Origin', origin || '*')
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+      response.headers.set('Access-Control-Allow-Headers', '*')
+      response.headers.set('Access-Control-Allow-Credentials', 'true')
+    }
+    
+    // Handle preflight for v0
+    if (request.method === 'OPTIONS') {
+      return new NextResponse(null, { status: 200, headers: Object.fromEntries(response.headers) })
+    }
+    
+    return response
+  }
 
   // Enforce HTTPS (SEO-friendly) if the request reached us over HTTP
   // Many platforms set x-forwarded-proto to indicate original scheme
@@ -72,26 +98,25 @@ export async function middleware(request: NextRequest) {
     } catch {}
   }
 
-  // Security headers for all requests
+  // Security headers for all requests (skip for v0 - handled above)
   if (!response) {
     response = NextResponse.next()
   }
-  // Per-request nonce for CSP
+  
+  // Per-request nonce for CSP (only for non-v0 environments)
   const nonce = crypto.randomUUID()
   response.headers.set('x-csp-nonce', nonce)
   
   // Environment-based security configuration
   const currentUrl = new URL(request.url)
-  const deploymentEnv = process.env.DEPLOYMENT_ENV || 'production'
-  const isV0Environment = deploymentEnv === 'v0'
   
   // Debug toggles: allow disabling or loosening CSP for troubleshooting
   const debugNoCsp = false
-  const debugLooseCsp = isV0Environment  // Only loose CSP for v0 environment
-  const debugOpenCors = isV0Environment  // Only open CORS for v0 environment
+  const debugLooseCsp = false  // v0 is handled separately above
+  const debugOpenCors = false  // v0 is handled separately above
   
-  // Environment-based security headers
-  if (!isV0Environment && (process.env.NODE_ENV || 'production') !== 'development') {
+  // Environment-based security headers (v0 skipped above)
+  if ((process.env.NODE_ENV || 'production') !== 'development') {
     // Enhanced HSTS with longer max-age and preload (production only)
     response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
     // Additional security headers
@@ -99,17 +124,15 @@ export async function middleware(request: NextRequest) {
     response.headers.set('X-XSS-Protection', '1; mode=block')
   }
   
-  // Frame options: strict for production, relaxed for v0
-  response.headers.set('X-Frame-Options', isV0Environment ? 'SAMEORIGIN' : 'DENY')
+  // Frame options: strict for production
+  response.headers.set('X-Frame-Options', 'DENY')
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set('X-DNS-Prefetch-Control', 'on')
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
   
-  // Cross-Origin-Opener-Policy: relaxed for v0 environments
-  if (!isV0Environment) {
-    response.headers.set('Cross-Origin-Opener-Policy', 'same-origin')
-  }
+  // Cross-Origin-Opener-Policy
+  response.headers.set('Cross-Origin-Opener-Policy', 'same-origin')
   
   // Development CSP with tightened security
   const isDev = (process.env.NODE_ENV || 'production') === 'development'
@@ -122,7 +145,7 @@ export async function middleware(request: NextRequest) {
     "img-src 'self' data: blob: https://*.blob.vercel-storage.com" + (isDev ? " http://localhost:*" : ""),
     "font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com",
     `connect-src 'self' https://v0.dev https://v0.app https://api.v0.dev https://api.v0.app https://v0chat.vercel.sh https://vercel.live/ https://vercel.com https://*.pusher.com/ https://blob.vercel-storage.com https://*.blob.vercel-storage.com https://blobs.vusercontent.net wss://*.pusher.com/ https://fides-vercel.us.fides.ethyca.com/api/v1/ https://cdn-api.ethyca.com/location https://privacy-vercel.us.fides.ethyca.com/api/v1/ https://api.getkoala.com https://*.sentry.io/api/ https://huggingface.co/onnx-community/ https://cas-bridge.xethub.hf.co/xet-bridge-us/ https://cdn.jsdelivr.net/npm/@huggingface/${isDev ? ' ws: http://localhost:*' : ''}`,
-    isV0Environment ? "frame-ancestors 'self' https://v0.dev https://*.v0.dev https://v0.app https://*.v0.app https://vercel.live https://*.vercel.app" : "frame-ancestors 'none'",
+    "frame-ancestors 'none'",
     "frame-src 'self' https://www.google.com https://maps.google.com https://www.youtube.com https://v0.dev https://v0.app",
     "worker-src 'self' blob:",
     "base-uri 'none'"
@@ -170,7 +193,7 @@ export async function middleware(request: NextRequest) {
     // Always set Vary: Origin to prevent cache issues
     response.headers.set('Vary', 'Origin')
     
-    if (debugOpenCors || isV0Environment || (((process.env.NODE_ENV || 'production') === 'production') && process.env.OPEN_CORS === 'true')) {
+    if (debugOpenCors || (((process.env.NODE_ENV || 'production') === 'production') && process.env.OPEN_CORS === 'true')) {
       // Fully open CORS: reflect origin when present (supports credentials), otherwise allow *
       if (origin) {
         response.headers.set('Access-Control-Allow-Origin', origin)
@@ -208,7 +231,6 @@ export async function middleware(request: NextRequest) {
   const isV0Origin = origin && (origin.includes('v0.dev') || origin.includes('v0.app') || origin.includes('api.v0.dev') || origin.includes('api.v0.app'))
   
   if (
-    isV0Environment || // Skip auth for v0 deployment environment
     isV0Origin || // Allow v0 origins without auth
     pathname.startsWith('/api/healthz') ||
     pathname.startsWith('/api/auth/login') ||

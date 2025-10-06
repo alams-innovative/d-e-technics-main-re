@@ -1,36 +1,51 @@
 /** @type {import('next').NextConfig} */
+const isV0Environment = process.env.DEPLOYMENT_ENV === 'v0'
+
 const nextConfig = {
   // ✅ Added recommended fields
   reactStrictMode: true,
   poweredByHeader: false,
-  compress: true,
+  compress: !isV0Environment, // Disable compression for v0 for faster dev experience
 
   // existing
   trailingSlash: false,
 
-  // ✅ Image/output hints
+  // ✅ Image/output hints - simplified for v0
   images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    formats: isV0Environment ? ['image/webp'] : ['image/avif', 'image/webp'],
+    deviceSizes: isV0Environment ? [640, 1080, 1920] : [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: isV0Environment ? [32, 64, 128] : [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: isV0Environment ? 0 : 60,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '*.blob.vercel-storage.com',
         pathname: '/**',
-      }
+      },
+      // Add v0 domains for development
+      ...(isV0Environment ? [
+        {
+          protocol: 'https',
+          hostname: '*.v0.dev',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.v0.app',
+          pathname: '/**',
+        }
+      ] : [])
     ],
   },
 
-  // ✅ Perf (safe with React 19)
+  // ✅ Perf (safe with React 19) - optimized for v0
   experimental: {
-    optimizePackageImports: ['react', 'react-dom', 'lucide-react'],
+    optimizePackageImports: isV0Environment ? ['react', 'react-dom'] : ['react', 'react-dom', 'lucide-react'],
     // Disabled to avoid requiring 'critters' during static prerender (e.g., /404)
     // If you want to re-enable, install critters: `pnpm add critters@0.0.22`
     // optimizeCss: true,
-    scrollRestoration: true,
+    scrollRestoration: !isV0Environment, // Disable for v0 to reduce JS overhead
   },
 
   async rewrites() {
@@ -100,8 +115,33 @@ const nextConfig = {
   },
 
   async headers() {
+    // Skip most headers for v0 environment to improve performance
+    if (isV0Environment) {
+      return [
+        // Minimal headers for v0 - only caching for static assets
+        {
+          source: "/images/:path*",
+          headers: [
+            {
+              key: "Cache-Control",
+              value: "public, max-age=3600", // Shorter cache for v0 dev
+            },
+          ],
+        },
+        {
+          source: "/_next/static/:path*",
+          headers: [
+            {
+              key: "Cache-Control",
+              value: "public, max-age=3600", // Shorter cache for v0 dev
+            },
+          ],
+        },
+      ];
+    }
+    
     return [
-      // ✅ Added site-wide security headers
+      // ✅ Added site-wide security headers (production only)
       {
         source: "/:path*",
         headers: [
@@ -114,7 +154,7 @@ const nextConfig = {
           // { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
         ],
       },
-      // Static assets caching
+      // Static assets caching (production)
       {
         source: "/images/:path*",
         headers: [
