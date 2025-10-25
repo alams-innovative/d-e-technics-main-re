@@ -16,26 +16,24 @@ interface MobileMenuProps {
 
 const defaultMenuItems = [
   { label: "Home", href: "/" },
-  { 
-    label: "Products", 
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  {
+    label: "Products",
     href: "/products",
     subItems: [
       { label: "Horizontal Form Fill Seal", href: "/products/horizontal-form-fill-seal" },
       { label: "On Edge Biscuit Wrapping", href: "/products/on-edge-biscuit-wrapping" },
       { label: "Supporting Equipment", href: "/products/supporting-equipment" },
-    ]
+    ],
   },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog", disabled: true }, // Temporarily disabled
-  { label: "Clients", href: "/clients" },
+  { label: "Wafer Lines", href: "/wafer-lines" },
+  { label: "Export", href: "/export" },
+  { label: "Our Clients", href: "/clients" },
   { label: "Contact", href: "/contact" },
 ]
 
-export default function MobileMenu({ 
-  isOpen, 
-  onClose, 
-  menuItems = defaultMenuItems 
-}: MobileMenuProps) {
+export default function MobileMenu({ isOpen, onClose, menuItems = defaultMenuItems }: MobileMenuProps) {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set())
 
   // Prevent body scroll when menu is open
@@ -64,7 +62,7 @@ export default function MobileMenu({
   }, [isOpen, onClose])
 
   const toggleExpanded = (label: string) => {
-    setExpandedItems(prev => {
+    setExpandedItems((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(label)) {
         newSet.delete(label)
@@ -79,64 +77,64 @@ export default function MobileMenu({
 
   return (
     <>
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/50 z-40"
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 animate-in fade-in duration-200"
         onClick={onClose}
+        aria-hidden="true"
       />
-      
-      {/* Mobile Menu */}
-      <div className="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl z-50 transform transition-transform duration-300">
+
+      <div className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] max-w-[85vw] bg-white shadow-2xl z-50 animate-in slide-in-from-right duration-300">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold text-gray-800">Menu</h2>
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-white">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Menu</h2>
           <button
             onClick={onClose}
-            className="close-menu p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors"
             aria-label="Close menu"
           >
-            <i className="fas fa-times text-gray-600"></i>
+            <i className="fas fa-times text-gray-600 text-xl"></i>
           </button>
         </div>
 
-        {/* Menu Items */}
-        <nav className="py-4">
+        {/* Menu Items - Scrollable */}
+        <nav className="overflow-y-auto h-[calc(100vh-73px)] py-2">
           {menuItems.map((item) => (
             <div key={item.label} className="border-b border-gray-100 last:border-b-0">
               <div className="flex items-center">
                 {item.disabled ? (
-                  <span className="flex-1 px-4 py-3 text-gray-400 cursor-not-allowed">
+                  <span className="flex-1 px-4 sm:px-6 py-3.5 text-gray-400 cursor-not-allowed text-sm sm:text-base">
                     {item.label}
                   </span>
                 ) : (
                   <Link
                     href={item.href}
-                    className="flex-1 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                    className="flex-1 px-4 sm:px-6 py-3.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100 transition-colors text-sm sm:text-base font-medium"
                     onClick={onClose}
                   >
                     {item.label}
                   </Link>
                 )}
-                
+
                 {item.subItems && (
                   <button
                     onClick={() => toggleExpanded(item.label)}
-                    className="px-4 py-3 text-gray-500 hover:text-gray-700 transition-colors"
+                    className="px-4 py-3.5 text-gray-500 hover:text-gray-700 transition-colors"
                     aria-label={`Toggle ${item.label} submenu`}
+                    aria-expanded={expandedItems.has(item.label)}
                   >
-                    <i className={`fas fa-chevron-${expandedItems.has(item.label) ? 'up' : 'down'}`}></i>
+                    <i className={`fas fa-chevron-${expandedItems.has(item.label) ? "up" : "down"} text-sm`}></i>
                   </button>
                 )}
               </div>
 
-              {/* Submenu */}
+              {/* Submenu with smooth animation */}
               {item.subItems && expandedItems.has(item.label) && (
-                <div className="bg-gray-50">
+                <div className="bg-gray-50 border-t border-gray-200 animate-in slide-in-from-top duration-200">
                   {item.subItems.map((subItem) => (
                     <Link
                       key={subItem.label}
                       href={subItem.href}
-                      className="block px-8 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-blue-600 transition-colors"
+                      className="block px-8 sm:px-10 py-3 text-sm text-gray-600 hover:bg-gray-100 hover:text-blue-600 active:bg-gray-200 transition-colors"
                       onClick={onClose}
                     >
                       {subItem.label}
@@ -147,8 +145,6 @@ export default function MobileMenu({
             </div>
           ))}
         </nav>
-
-        
       </div>
     </>
   )
