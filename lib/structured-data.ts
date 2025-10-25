@@ -21,6 +21,11 @@ interface OrganizationData {
   sameAs?: string[]
 }
 
+export interface FAQData {
+  question: string
+  answer: string
+}
+
 interface ProductData {
   name: string
   description: string
@@ -34,9 +39,23 @@ interface ProductData {
   }
 }
 
-interface FAQData {
-  question: string
-  answer: string
+export interface ProductSchemaData {
+  name: string
+  description: string
+  image: string
+  brand: string
+  manufacturer: string
+  category: string
+  offers?: {
+    availability: string
+    priceCurrency?: string
+  }
+  aggregateRating?: {
+    ratingValue: number
+    reviewCount: number
+    bestRating?: number
+    worstRating?: number
+  }
 }
 
 interface ServiceData {
@@ -47,7 +66,7 @@ interface ServiceData {
   areaServed: string[]
 }
 
-interface ReviewData {
+export interface ReviewData {
   author: string
   reviewBody: string
   reviewRating: number
@@ -83,11 +102,7 @@ export function generateOrganizationSchema(data: OrganizationData) {
   }
 }
 
-export function generateProductSchema(
-  data: ProductData & {
-    aggregateRating?: { ratingValue: number; reviewCount: number; bestRating?: number; worstRating?: number }
-  },
-) {
+export function generateProductSchema(data: ProductSchemaData) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",

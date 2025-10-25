@@ -154,6 +154,8 @@ export function generatePageMetadata(options: PageSEOOptions): Metadata {
 
   const allKeywords = [...seoConfig.defaultKeywords, ...keywords].join(", ")
 
+  const ogType = type === "product" ? "website" : type
+
   const metadata: Metadata = {
     title: pageTitle,
     description,
@@ -181,14 +183,14 @@ export function generatePageMetadata(options: PageSEOOptions): Metadata {
         },
       ],
       url: fullUrl,
-      type,
+      type: ogType,
       siteName: seoConfig.siteName,
       locale: "en_US",
       ...(publishedTime && { publishedTime }),
       ...(modifiedTime && { modifiedTime }),
-      ...(author && type === "article" && { authors: [author] }),
-      ...(section && type === "article" && { section }),
-      ...(tags.length > 0 && type === "article" && { tags }),
+      ...(author && ogType === "article" && { authors: [author] }),
+      ...(section && ogType === "article" && { section }),
+      ...(tags.length > 0 && ogType === "article" && { tags }),
     },
     twitter: {
       card: "summary_large_image",
