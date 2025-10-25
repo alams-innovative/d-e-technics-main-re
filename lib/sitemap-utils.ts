@@ -102,3 +102,88 @@ export const CHANGE_FREQUENCIES = {
   resources: "weekly",
   news: "daily",
 } as const
+
+export interface SitemapConfig {
+  baseUrl: string
+  defaultChangeFreq?: SitemapEntry["changeFrequency"]
+  defaultPriority?: number
+  excludePaths?: string[]
+}
+
+export function generateCompleteSitemap(config: SitemapConfig & { blogSlugs?: string[] }): SitemapEntry[] {
+  const { baseUrl, defaultChangeFreq = "monthly", defaultPriority = 0.5, excludePaths = [], blogSlugs = [] } = config
+
+  const entries: SitemapEntry[] = []
+
+  // Homepage
+  entries.push(
+    generateSitemapEntry(baseUrl, "/", {
+      changeFrequency: "weekly",
+      priority: SEO_PRIORITIES.homepage,
+    }),
+  )
+
+  // Main pages
+  const mainPages = ["/about", "/products", "/services", "/contact", "/clients", "/export", "/blog"]
+  mainPages.forEach((page) => {
+    if (!excludePaths.includes(page)) {
+      entries.push(
+        generateSitemapEntry(baseUrl, page, {
+          changeFrequency: CHANGE_FREQUENCIES.company as any,
+          priority: SEO_PRIORITIES.mainPages,
+        }),
+      )
+    }
+  })
+
+  // Product categories
+  entries.push(...generateCategorySitemap(baseUrl, CATEGORY_SLUGS))
+
+  // Individual products
+  entries.push(...generateProductSitemap(baseUrl, PRODUCT_SLUGS))
+
+  // Industries
+  entries.push(...generateIndustrySitemap(baseUrl, INDUSTRY_SLUGS))
+
+  // Blog posts
+  if (blogSlugs.length > 0) {
+    entries.push(...generateBlogSitemap(baseUrl, blogSlugs))
+  }
+
+  return entries.filter((entry) => !excludePaths.includes(new URL(entry.url).pathname))
+}
+
+export function generateBlogSitemap(baseUrl: string, blogSlugs: string[]): SitemapEntry[] {
+  return blogSlugs.map((slug) =>
+    generateSitemapEntry(baseUrl, `/blog/${slug}`, {
+      changeFrequency: "monthly",
+      priority: 0.6,
+    }),
+  )
+}
+
+export interface ImageSitemapEntry {
+  loc: string
+  images: Array<{
+    loc: string
+    title?: string
+    caption?: string
+  }>
+}
+
+export function generateImageSitemap(
+  baseUrl: string,
+  pages: Array<{
+    path: string
+    images: Array<{ url: string; title?: string; caption?: string }>
+  }>,
+): ImageSitemapEntry[] {
+  return pages.map((page) => ({
+    loc: `${baseUrl}${page.path}`,
+    images: page.images.map((img) => ({
+      loc: img.url.startsWith("http") ? img.url : `${baseUrl}${img.url}`,
+      ...(img.title && { title: img.title }),
+      ...(img.caption && { caption: img.caption }),
+    })),
+  }))
+}

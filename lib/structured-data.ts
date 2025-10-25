@@ -83,7 +83,11 @@ export function generateOrganizationSchema(data: OrganizationData) {
   }
 }
 
-export function generateProductSchema(data: ProductData) {
+export function generateProductSchema(
+  data: ProductData & {
+    aggregateRating?: { ratingValue: number; reviewCount: number; bestRating?: number; worstRating?: number }
+  },
+) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -101,8 +105,8 @@ export function generateProductSchema(data: ProductData) {
       address: {
         "@type": "PostalAddress",
         addressCountry: "Pakistan",
-        addressLocality: "Lahore"
-      }
+        addressLocality: "Lahore",
+      },
     },
     category: data.category,
     ...(data.offers && {
@@ -110,24 +114,33 @@ export function generateProductSchema(data: ProductData) {
         "@type": "Offer",
         seller: {
           "@type": "Organization",
-          name: "D.E. Technics (Pvt.) Ltd."
+          name: "D.E. Technics (Pvt.) Ltd.",
         },
         ...data.offers,
         availability: data.offers.availability || "https://schema.org/InStock",
+      },
+    }),
+    ...(data.aggregateRating && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: data.aggregateRating.ratingValue,
+        reviewCount: data.aggregateRating.reviewCount,
+        bestRating: data.aggregateRating.bestRating || 5,
+        worstRating: data.aggregateRating.worstRating || 1,
       },
     }),
     additionalProperty: [
       {
         "@type": "PropertyValue",
         name: "Industry",
-        value: "Food & Beverage, Confectionery, Pharmaceuticals"
+        value: "Food & Beverage, Confectionery, Pharmaceuticals",
       },
       {
-        "@type": "PropertyValue", 
+        "@type": "PropertyValue",
         name: "Origin",
-        value: "Pakistan"
-      }
-    ]
+        value: "Pakistan",
+      },
+    ],
   }
 }
 
@@ -146,7 +159,19 @@ export function generateFAQSchema(faqs: FAQData[]) {
   }
 }
 
-export function generateServiceSchema(data: ServiceData) {
+export interface ServiceSchemaData {
+  name: string
+  description: string
+  provider: string
+  serviceType: string
+  areaServed: string[]
+  offers?: {
+    price?: string
+    priceCurrency?: string
+  }
+}
+
+export function generateServiceSchema(data: ServiceSchemaData) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -161,6 +186,98 @@ export function generateServiceSchema(data: ServiceData) {
       "@type": "Country",
       name: area,
     })),
+    ...(data.offers && {
+      offers: {
+        "@type": "Offer",
+        ...(data.offers.price && { price: data.offers.price }),
+        ...(data.offers.priceCurrency && { priceCurrency: data.offers.priceCurrency }),
+      },
+    }),
+  }
+}
+
+export interface ImageObjectSchemaData {
+  url: string
+  caption?: string
+  width?: number
+  height?: number
+  author?: string
+}
+
+export function generateImageObjectSchema(data: ImageObjectSchemaData) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: data.url,
+    ...(data.caption && { caption: data.caption }),
+    ...(data.width && { width: data.width }),
+    ...(data.height && { height: data.height }),
+    ...(data.author && {
+      author: {
+        "@type": "Person",
+        name: data.author,
+      },
+    }),
+  }
+}
+
+export interface OfferSchemaData {
+  name: string
+  description: string
+  price?: string
+  priceCurrency?: string
+  availability?: string
+  validFrom?: string
+  validThrough?: string
+  seller: string
+}
+
+export function generateOfferSchema(data: OfferSchemaData) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    name: data.name,
+    description: data.description,
+    ...(data.price && { price: data.price }),
+    ...(data.priceCurrency && { priceCurrency: data.priceCurrency }),
+    availability: data.availability || "https://schema.org/InStock",
+    ...(data.validFrom && { validFrom: data.validFrom }),
+    ...(data.validThrough && { validThrough: data.validThrough }),
+    seller: {
+      "@type": "Organization",
+      name: data.seller,
+    },
+  }
+}
+
+export interface WebPageSchemaData {
+  name: string
+  description: string
+  url: string
+  image?: string
+  breadcrumb?: Array<{ name: string; url?: string }>
+  lastReviewed?: string
+  reviewedBy?: string
+}
+
+export function generateWebPageSchema(data: WebPageSchemaData) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: data.name,
+    description: data.description,
+    url: data.url,
+    ...(data.image && { image: data.image }),
+    ...(data.breadcrumb && {
+      breadcrumb: generateBreadcrumbSchema(data.breadcrumb),
+    }),
+    ...(data.lastReviewed && { lastReviewed: data.lastReviewed }),
+    ...(data.reviewedBy && {
+      reviewedBy: {
+        "@type": "Organization",
+        name: data.reviewedBy,
+      },
+    }),
   }
 }
 
@@ -204,37 +321,37 @@ export function generateBreadcrumbSchema(items: Array<{ name: string; url?: stri
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      ...(item.url && { 
+      ...(item.url && {
         item: {
           "@type": "WebPage",
           "@id": item.url,
-          name: item.name
-        }
+          name: item.name,
+        },
       }),
     })),
   }
 }
 
 export function generateReviewSchema(reviews: ReviewData[]) {
-  return reviews.map(review => ({
+  return reviews.map((review) => ({
     "@context": "https://schema.org",
     "@type": "Review",
     author: {
       "@type": "Person",
-      name: review.author
+      name: review.author,
     },
     reviewBody: review.reviewBody,
     reviewRating: {
       "@type": "Rating",
       ratingValue: review.reviewRating,
       bestRating: 5,
-      worstRating: 1
+      worstRating: 1,
     },
     itemReviewed: {
       "@type": "Organization",
-      name: review.itemReviewed
+      name: review.itemReviewed,
     },
-    ...(review.datePublished && { datePublished: review.datePublished })
+    ...(review.datePublished && { datePublished: review.datePublished }),
   }))
 }
 
@@ -244,7 +361,8 @@ export const companyData: OrganizationData = {
   alternateName: "Dynamic Engineering",
   url: "https://detechnics.com",
   logo: "https://detechnics.com/images/logo.png",
-  description: "Leading packing machine manufacturer in Pakistan since 1984, specializing in small packing machines, automatic packing machines, food packaging machines, powder packaging machines, blister packaging machines, sachet packaging machines, pillow packaging machines and advanced packaging automation solutions",
+  description:
+    "Leading packing machine manufacturer in Pakistan since 1984, specializing in small packing machines, automatic packing machines, food packaging machines, powder packaging machines, blister packaging machines, sachet packaging machines, pillow packaging machines and advanced packaging automation solutions",
   foundingDate: "1984",
   founder: {
     name: "Muhammad Haroon",
@@ -260,4 +378,81 @@ export const companyData: OrganizationData = {
     email: "info@detechnics.com",
   },
   sameAs: ["https://www.facebook.com/detechnicspk", "https://www.youtube.com/@DETechnicsPK"],
+}
+
+export interface ArticleSchemaData {
+  headline: string
+  description: string
+  image: string
+  datePublished: string
+  dateModified: string
+  author: {
+    name: string
+    url?: string
+  }
+  publisher: {
+    name: string
+    logo: string
+  }
+  articleSection?: string
+  keywords?: string[]
+}
+
+export function generateArticleSchema(data: ArticleSchemaData) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: data.headline,
+    description: data.description,
+    image: data.image,
+    datePublished: data.datePublished,
+    dateModified: data.dateModified,
+    author: {
+      "@type": "Person",
+      name: data.author.name,
+      ...(data.author.url && { url: data.author.url }),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: data.publisher.name,
+      logo: {
+        "@type": "ImageObject",
+        url: data.publisher.logo,
+      },
+    },
+    ...(data.articleSection && { articleSection: data.articleSection }),
+    ...(data.keywords && { keywords: data.keywords.join(", ") }),
+  }
+}
+
+export interface HowToSchemaData {
+  name: string
+  description: string
+  image?: string
+  totalTime?: string
+  steps: Array<{
+    name: string
+    text: string
+    image?: string
+    url?: string
+  }>
+}
+
+export function generateHowToSchema(data: HowToSchemaData) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: data.name,
+    description: data.description,
+    ...(data.image && { image: data.image }),
+    ...(data.totalTime && { totalTime: data.totalTime }),
+    step: data.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.image && { image: step.image }),
+      ...(step.url && { url: step.url }),
+    })),
+  }
 }

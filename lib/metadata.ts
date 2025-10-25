@@ -72,6 +72,26 @@ export function generateMetadata(config: SEOConfig): Metadata {
   }
 }
 
+export function quickMetadata(
+  title: string,
+  description: string,
+  path: string,
+  options?: {
+    image?: string
+    keywords?: string
+    noIndex?: boolean
+  },
+): Metadata {
+  return generateMetadata({
+    title,
+    description,
+    keywords: options?.keywords,
+    image: options?.image,
+    path,
+    noIndex: options?.noIndex,
+  })
+}
+
 export const defaultSEO = {
   siteName: "D.E. Technics",
   baseUrl: "https://detechnics.com",
@@ -80,8 +100,10 @@ export const defaultSEO = {
   phone: "+92-333-0184756",
   email: "info@detechnics.com",
   address: "Glaxo Town, 20th Km, Ferozepur Road Lahore-54760, Pakistan",
-  description: "Leading packing machine manufacturer in Pakistan offering competitive prices for small packing machines, automatic packing machines, food packaging machines, powder packaging machines, blister packaging machines, sachet packaging machines, pillow packaging machines and specialized packaging solutions.",
-  keywords: "packing machine, packing machine price in Pakistan, food packaging machine, powder packaging machine, blister packaging machine, sachet packaging machine, pillow packaging machine, plastic packaging machine, snack food packaging machine, bakery packaging machine, juice packaging machine, candy packaging machine, filling and packaging machine, sealing machines for packaging, machine manufacturer, flow wrapper, sachet packaging, sachet packing, seal machine, pack machine, heat seal machine, wrapper machine, heat and seal machine, GulfoodManufacturing, DubaiExhibition, ManufacturingInnovation, FoodIndustry, PackagingSolutions, SAMAEngineering, PakistanPavilion, MeetUsInDubai, GlobalExpo, PakistanEntrepreneursAward, AwardWinner, lahoreengineering, packingmachinery, packing, packingmachine, packaging, packagingmachine, wrappingmachinery, wrapping, biscuits, soap, cake, BeveragePackaging, DairyProcessing, PackagingMachinery, MetalDetectors, XRayInspection, QualityAssurance, millipack, packagingpakistan, packagingindustry, industrialprinters, foodprocessing, Strapack, PackagingStraps, SecureShipping, DurableStraps, ReliablePackaging, PrintedStraps, CustomBranding, honeypackaging, FoodGrade, SmallBusiness, honeystorage, LeakProof, Customizable, BrandingOpportunity, NewBusiness, Startups, WomenInBusiness",
+  description:
+    "Leading packing machine manufacturer in Pakistan offering competitive prices for small packing machines, automatic packing machines, food packaging machines, powder packaging machines, blister packaging machines, sachet packaging machines, pillow packaging machines and specialized packaging solutions.",
+  keywords:
+    "packing machine, packing machine price in Pakistan, food packaging machine, powder packaging machine, blister packaging machine, sachet packaging machine, pillow packaging machine, plastic packaging machine, snack food packaging machine, bakery packaging machine, juice packaging machine, candy packaging machine, filling and packaging machine, sealing machines for packaging, machine manufacturer, flow wrapper, sachet packaging, sachet packing, seal machine, pack machine, heat seal machine, wrapper machine, heat and seal machine, GulfoodManufacturing, DubaiExhibition, ManufacturingInnovation, FoodIndustry, PackagingSolutions, SAMAEngineering, PakistanPavilion, MeetUsInDubai, GlobalExpo, PakistanEntrepreneursAward, AwardWinner, lahoreengineering, packingmachinery, packing, packingmachine, packaging, packagingmachine, wrappingmachinery, wrapping, biscuits, soap, cake, BeveragePackaging, DairyProcessing, PackagingMachinery, MetalDetectors, XRayInspection, QualityAssurance, millipack, packagingpakistan, packagingindustry, industrialprinters, foodprocessing, Strapack, PackagingStraps, SecureShipping, DurableStraps, ReliablePackaging, PrintedStraps, CustomBranding, honeypackaging, FoodGrade, SmallBusiness, honeystorage, LeakProof, Customizable, BrandingOpportunity, NewBusiness, Startups, WomenInBusiness",
   social: {
     facebook: "https://www.facebook.com/detechnicspk",
     youtube: "https://www.youtube.com/@DETechnicsPK",
