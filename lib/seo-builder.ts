@@ -5,18 +5,17 @@ import {
   generateProductSchema,
   generateFAQSchema,
   generateBreadcrumbSchema,
-  generateOrganizationSchema,
   generateLocalBusinessSchema,
   generateWebPageSchema,
   generateHowToSchema,
   generateReviewSchema,
-  companyData,
   type ArticleSchemaData,
   type ProductSchemaData,
   type FAQData,
   type HowToSchemaData,
   type ReviewData,
 } from "./structured-data"
+import { generateOrganizationEnhancedSchema } from "@/components/enhanced-structured-data"
 
 export type SchemaType =
   | "organization"
@@ -43,7 +42,7 @@ export interface SEOBuilderOptions extends PageSEOOptions {
 
 export interface SEOResult {
   metadata: Metadata
-  schemas: Array<Record<string, any>>
+  schemas: Array<Record<string, unknown>>
 }
 
 /**
@@ -71,12 +70,12 @@ export function buildPageSEO(options: SEOBuilderOptions): SEOResult {
   const metadata = generatePageMetadata(metadataOptions)
 
   // Generate schemas
-  const generatedSchemas: Array<Record<string, any>> = []
+  const generatedSchemas: Array<Record<string, unknown>> = []
 
   schemas.forEach((schemaType) => {
     switch (schemaType) {
       case "organization":
-        generatedSchemas.push(generateOrganizationSchema(companyData))
+        generatedSchemas.push(generateOrganizationEnhancedSchema())
         break
 
       case "localBusiness":

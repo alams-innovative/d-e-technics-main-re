@@ -1,6 +1,6 @@
 // app/api/auth/login/route.ts
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
+// cookies import removed - not used
 import { query } from '@/lib/db'
 import { createSession, incrementFailedAttempts, resetFailedAttempts, isAccountLocked } from '@/lib/auth'
 import { verifyPassword } from '@/lib/auth-server'
@@ -36,9 +36,9 @@ export async function POST(request: Request) {
       )
     }
 
-    const password = (validation.data as any).password
+    const password = validation.data.password as string
     // Accept either explicit username or a generic identifier (username or email)
-    const identifier = (validation.data as any).username ?? (validation.data as any).identifier
+    const identifier = (validation.data as Record<string, string>).username ?? (validation.data as Record<string, string>).identifier
 
     // Get user from database by username OR email
     const userResult = await query(
@@ -70,7 +70,15 @@ export async function POST(request: Request) {
     }
 
     // Verify password
-    const isPasswordValid = await verifyPassword(password, user.password_hash)
+    const hashedPassword = user.password_hash
+    if (!hashedPassword) {
+      logger.warn('Missing password hash for user', { requestId, username: user.username })
+      return NextResponse.json(
+        { error: { code: 'INVALID_CREDENTIALS', message: 'Invalid username or password' } },
+        { status: 401 }
+      )
+    }
+    const isPasswordValid = await verifyPassword(password, hashedPassword)
     if (!isPasswordValid) {
       await incrementFailedAttempts(user.username)
       logger.warn('Login attempt with invalid password', { requestId, username: user.username })
@@ -115,15 +123,8 @@ export async function POST(request: Request) {
 
     return response;
 
-  } catch (error) {
-    logger.error('Login error', { 
-      requestId, 
-      error: error instanceof Error ? error.message : 'Unknown error' 
-    })
-    
-    return NextResponse.json(
-      { error: { code: 'INTERNAL_ERROR', message: 'An internal error occurred' } },
-      { status: 500 }
-    )
+  } catch (error: unknown) {
+    console.error('Login error:', error)
+    return NextResponse.json({ error: { message: 'Internal server error', code: 'INTERNAL_ERROR' } }, { status: 500 })
   }
 }

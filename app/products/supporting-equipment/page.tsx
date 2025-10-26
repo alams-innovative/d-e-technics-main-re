@@ -55,11 +55,25 @@ export default function SupportingEquipmentPage() {
     }
   }
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://detechnics.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://detechnics.com/products" },
+      { "@type": "ListItem", "position": 3, "name": "Supporting Equipment", "item": "https://detechnics.com/products/supporting-equipment" }
+    ]
+  }
+
   return (
     <div>
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} 
       />
       
       <Header />

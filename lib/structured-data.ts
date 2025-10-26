@@ -1,42 +1,6 @@
-interface OrganizationData {
-  name: string
-  alternateName?: string
-  url: string
-  logo: string
-  description: string
-  foundingDate: string
-  founder?: {
-    name: string
-  }
-  address: {
-    streetAddress: string
-    addressLocality: string
-    postalCode: string
-    addressCountry: string
-  }
-  contactPoint: {
-    telephone: string
-    email: string
-  }
-  sameAs?: string[]
-}
-
 export interface FAQData {
   question: string
   answer: string
-}
-
-interface ProductData {
-  name: string
-  description: string
-  image: string
-  brand: string
-  manufacturer: string
-  category: string
-  offers?: {
-    availability: string
-    priceCurrency?: string
-  }
 }
 
 export interface ProductSchemaData {
@@ -58,48 +22,12 @@ export interface ProductSchemaData {
   }
 }
 
-interface ServiceData {
-  name: string
-  description: string
-  provider: string
-  serviceType: string
-  areaServed: string[]
-}
-
 export interface ReviewData {
   author: string
   reviewBody: string
   reviewRating: number
   datePublished?: string
   itemReviewed: string
-}
-
-export function generateOrganizationSchema(data: OrganizationData) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: data.name,
-    ...(data.alternateName && { alternateName: data.alternateName }),
-    url: data.url,
-    logo: data.logo,
-    description: data.description,
-    foundingDate: data.foundingDate,
-    ...(data.founder && { founder: { "@type": "Person", name: data.founder.name } }),
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: data.address.streetAddress,
-      addressLocality: data.address.addressLocality,
-      postalCode: data.address.postalCode,
-      addressCountry: data.address.addressCountry,
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: data.contactPoint.telephone,
-      contactType: "customer service",
-      email: data.contactPoint.email,
-    },
-    ...(data.sameAs && { sameAs: data.sameAs }),
-  }
 }
 
 export function generateProductSchema(data: ProductSchemaData) {
@@ -368,31 +296,6 @@ export function generateReviewSchema(reviews: ReviewData[]) {
     },
     ...(review.datePublished && { datePublished: review.datePublished }),
   }))
-}
-
-// Default company data
-export const companyData: OrganizationData = {
-  name: "D.E. Technics (Pvt.) Ltd.",
-  alternateName: "Dynamic Engineering",
-  url: "https://detechnics.com",
-  logo: "https://detechnics.com/images/logo.png",
-  description:
-    "Leading packing machine manufacturer in Pakistan since 1984, specializing in small packing machines, automatic packing machines, food packaging machines, powder packaging machines, blister packaging machines, sachet packaging machines, pillow packaging machines and advanced packaging automation solutions",
-  foundingDate: "1984",
-  founder: {
-    name: "Muhammad Haroon",
-  },
-  address: {
-    streetAddress: "Glaxo Town, 20th Km, Ferozepur Road",
-    addressLocality: "Lahore",
-    postalCode: "54760",
-    addressCountry: "Pakistan",
-  },
-  contactPoint: {
-    telephone: "+92-333-0184756",
-    email: "info@detechnics.com",
-  },
-  sameAs: ["https://www.facebook.com/detechnicspk", "https://www.youtube.com/@DETechnicsPK"],
 }
 
 export interface ArticleSchemaData {

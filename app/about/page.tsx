@@ -2,7 +2,8 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import FAQSection from "@/components/seo/FAQSection"
 import Breadcrumb from "@/components/breadcrumb"
-import { generateOrganizationSchema, generateBreadcrumbSchema, companyData } from "@/lib/structured-data"
+import { generateBreadcrumbSchema } from "@/lib/structured-data"
+import { generateOrganizationEnhancedSchema } from "@/components/enhanced-structured-data"
 import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   },
 }
 
-const organizationSchema = generateOrganizationSchema(companyData)
+const organizationSchema = generateOrganizationEnhancedSchema()
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: "Home", url: "https://detechnics.com" },
   { name: "About Us", url: "https://detechnics.com/about" },
@@ -97,7 +98,7 @@ export default function AboutPage() {
               </p>
               <p className="text-neutral-700 leading-relaxed mb-6 md:mb-8">
                 By integrating industrial automation, we ensure that our vacuum packaging machines and airtight
-                packaging machines operate with maximum efficiency, reliability, and precision. Whether it's food
+                packaging machines operate with maximum efficiency, reliability, and precision. Whether it&apos;s food
                 packing in Lahore or packaging for soaps, we use high-quality materials and proven electrical/electronic
                 components to guarantee uninterrupted and trouble-free operations.
               </p>
@@ -206,7 +207,7 @@ export default function AboutPage() {
                 <h3 className="text-xl md:text-2xl font-semibold">Our Mission</h3>
               </div>
               <p className="text-neutral-700 leading-relaxed">
-                To deliver cutting-edge packaging machinery that enhances our clients' operational efficiency, product
+                To deliver cutting-edge packaging machinery that enhances our clients&apos; operational efficiency, product
                 quality, and market competitiveness.
               </p>
             </div>

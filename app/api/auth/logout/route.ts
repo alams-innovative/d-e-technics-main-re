@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger'
 
 export const runtime = 'nodejs'
 
-export async function POST(request: Request) {
+export async function POST(_request: Request) {
   const requestId = crypto.randomUUID()
   
   try {

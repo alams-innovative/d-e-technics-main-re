@@ -31,8 +31,8 @@ export default function LoginPage() {
           router.push('/dashboard')
           return
         }
-      } catch (error) {
-        // User is not authenticated, continue with login page
+      } catch {
+        // User is not authenticated, continue to login page
         console.log('Not authenticated, showing login page')
       } finally {
         setIsCheckingAuth(false)

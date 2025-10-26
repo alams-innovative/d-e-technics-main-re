@@ -6,7 +6,8 @@ import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import Breadcrumb from "@/components/breadcrumb"
-import { generateBreadcrumbSchema, generateFAQSchema, companyData } from "@/lib/structured-data"
+import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/structured-data"
+import { generateOrganizationEnhancedSchema } from "@/components/enhanced-structured-data"
 import { COMMON_BREADCRUMBS } from "@/lib/breadcrumb-utils"
 import ProductsFilterGrid from "@/components/products-filter-grid"
 import ProductsItemListJsonLd from "@/components/seo/ProductsItemListJsonLd"
@@ -64,34 +65,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 const faqSchema = generateFAQSchema(productFAQs)
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: companyData.name,
-  alternateName: companyData.alternateName,
-  url: companyData.url,
-  logo: companyData.logo,
-  description: companyData.description,
-  foundingDate: companyData.foundingDate,
-  founder: {
-    "@type": "Person",
-    name: companyData.founder?.name,
-  },
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: companyData.address.streetAddress,
-    addressLocality: companyData.address.addressLocality,
-    postalCode: companyData.address.postalCode,
-    addressCountry: companyData.address.addressCountry,
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: companyData.contactPoint.telephone,
-    contactType: "customer service",
-    email: companyData.contactPoint.email,
-  },
-  sameAs: companyData.sameAs,
-}
+const organizationSchema = generateOrganizationEnhancedSchema()
 
 // Enhanced product catalog schema with aggregateRating
 const productCatalogSchema = {

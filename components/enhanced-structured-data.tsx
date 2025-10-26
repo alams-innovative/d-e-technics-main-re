@@ -64,7 +64,7 @@ export function generateProductStructuredData({ product, faqs }: ProductStructur
     ].join(", ")
   }
 
-  const schemas: any[] = [baseSchema]
+  const schemas: Record<string, unknown>[] = [baseSchema]
 
   // Add FAQ structured data if provided
   if (faqs && faqs.length > 0) {
@@ -86,37 +86,49 @@ export function generateProductStructuredData({ product, faqs }: ProductStructur
   return schemas
 }
 
+/**
+ * Enhanced Organization Schema with full SEO features
+ * This is the primary Organization schema used site-wide
+ */
 export function generateOrganizationEnhancedSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "D.E. Technics (Pvt.) Ltd.",
-    "alternateName": "D.E. Technics",
+    "alternateName": "Dynamic Engineering",
     "url": "https://detechnics.com",
     "logo": "https://detechnics.com/images/logo.png",
-    "description": "Leading horizontal form fill seal machine and wafer lines manufacturer in Pakistan. Premium HFFS packaging equipment, biscuit packaging machines, and wafer production lines since 1984.",
+    "description": "Leading packing machine manufacturer in Pakistan since 1984, specializing in horizontal form fill seal machines, wafer production lines, biscuit packaging machines, and advanced packaging automation solutions",
     "foundingDate": "1984",
+    "founder": {
+      "@type": "Person",
+      "name": "Muhammad Haroon"
+    },
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "Pakistan",
-      "addressLocality": "Lahore"
+      "streetAddress": "Glaxo Town, 20th Km, Ferozepur Road",
+      "addressLocality": "Lahore",
+      "postalCode": "54760",
+      "addressCountry": "Pakistan"
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+92-42-35301946",
-      "contactType": "sales",
+      "telephone": "+92-333-0184756",
+      "email": "info@detechnics.com",
+      "contactType": "customer service",
       "availableLanguage": ["English", "Urdu"]
     },
     "sameAs": [
-      "https://www.facebook.com/detechnics",
+      "https://www.facebook.com/detechnicspk",
+      "https://www.youtube.com/@DETechnicsPK",
       "https://www.linkedin.com/company/detechnics"
     ],
     "makesOffer": {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Product",
-        "name": "Horizontal Form Fill Seal Machines",
-        "category": "Packaging Equipment"
+        "name": "Packaging Machinery Solutions",
+        "category": "Industrial Packaging Equipment"
       }
     },
     "areaServed": {
@@ -129,7 +141,9 @@ export function generateOrganizationEnhancedSchema() {
       "Wafer Production Lines",
       "Biscuit Packaging Machines",
       "Food Packaging Machinery",
-      "Confectionery Packaging Equipment"
+      "Confectionery Packaging Equipment",
+      "Automatic Packing Machines",
+      "Industrial Automation"
     ],
     "hasCredential": {
       "@type": "EducationalOccupationalCredential",

@@ -92,11 +92,21 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       "@type": "Offer",
       availability: "https://schema.org/InStock",
       priceCurrency: "USD",
+      url: `https://detechnics.com/products/${slug}`,
       seller: {
         "@type": "Organization",
         name: "D.E. Technics (Pvt.) Ltd.",
       },
     },
+    ...(product.rating && product.reviews && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: product.rating.toString(),
+        reviewCount: product.reviews.toString(),
+        bestRating: "5",
+        worstRating: "1",
+      },
+    }),
     additionalProperty: Object.entries(product.specifications).map(([key, value]) => ({
       "@type": "PropertyValue",
       name: key,

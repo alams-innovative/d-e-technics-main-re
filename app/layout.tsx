@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { headers } from "next/headers"
-import { companyData, generateOrganizationSchema } from "@/lib/structured-data"
 import { generateOrganizationEnhancedSchema } from "@/components/enhanced-structured-data"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
@@ -18,12 +17,16 @@ const geistSans = Geist({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-geist-sans",
+  preload: true,
+  adjustFontFallback: true,
 })
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-geist-mono",
+  preload: false, // Non-critical font
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
@@ -58,15 +61,6 @@ export const metadata: Metadata = {
   },
 }
 
-function logError(error: Error, errorInfo: React.ErrorInfo) {
-  // In production, you would send this to your error tracking service
-  // like Sentry, LogRocket, or Bugsnag
-  if (process.env.NODE_ENV === "production") {
-    console.error("Application Error:", error, errorInfo)
-    // Example: Sentry.captureException(error, { extra: errorInfo })
-  }
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -77,17 +71,36 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <head>
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        {/* Optimized resource hints for Core Web Vitals */}
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        
+        {/* Optimized font loading for Core Web Vitals */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+        />
+        
+        {/* Defer non-critical Font Awesome */}
+        <link
+          rel="preload"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          as="style"
+        />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Preload critical hero image for LCP optimization */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          as="image"
+          href="/images/hero1.jpg"
+          fetchPriority="high"
         />
       </head>
       <body className="font-sans">
