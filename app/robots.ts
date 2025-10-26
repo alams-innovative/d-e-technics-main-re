@@ -37,6 +37,31 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 2,
       },
       {
+        userAgent: "GPTBot",
+        allow: "/",
+        disallow: ["/private/", "/admin/", "/api/", "/dashboard/", "/login/"],
+      },
+      {
+        userAgent: "ChatGPT-User",
+        allow: "/",
+        disallow: ["/private/", "/admin/", "/api/", "/dashboard/", "/login/"],
+      },
+      {
+        userAgent: "Google-Extended",
+        allow: "/",
+        disallow: ["/private/", "/admin/", "/api/", "/dashboard/", "/login/"],
+      },
+      {
+        userAgent: "anthropic-ai",
+        allow: "/",
+        disallow: ["/private/", "/admin/", "/api/", "/dashboard/", "/login/"],
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+        disallow: ["/private/", "/admin/", "/api/", "/dashboard/", "/login/"],
+      },
+      {
         userAgent: "facebookexternalhit",
         allow: "/",
       },

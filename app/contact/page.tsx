@@ -1,13 +1,13 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import FAQSection from "@/components/faq-section"
+import FAQSection from "@/components/seo/FAQSection"
 import ContactForm from "@/components/contact-form"
 import Breadcrumb from "@/components/breadcrumb"
 import LoadingButton from "@/components/loading-button"
-import { generateLocalBusinessSchema, generateFAQSchema } from "@/lib/structured-data"
-import { COMMON_BREADCRUMBS } from "@/lib/breadcrumb-utils"
+import { generateLocalBusinessSchema } from "@/lib/structured-data"
 import type { Metadata } from "next"
 import Link from "next/link"
+import { COMMON_BREADCRUMBS } from "@/constants/breadcrumbs" // Importing COMMON_BREADCRUMBS
 
 export const metadata: Metadata = {
   title: "Contact D.E. Technics - Packing Machine Price in Pakistan | Buy Packing Machine",
@@ -48,47 +48,18 @@ export const metadata: Metadata = {
 
 const localBusinessSchema = generateLocalBusinessSchema()
 
-const faqSchema = generateFAQSchema([
-  {
-    question: "What is the typical lead time for machinery delivery?",
-    answer:
-      "The lead time for our machinery typically ranges from 4 to 12 weeks, depending on the complexity of the machine, customization requirements, and current production schedules. We always provide a specific timeline during the quotation process.",
-  },
-  {
-    question: "Do you provide after-sales service and maintenance?",
-    answer:
-      "Yes, we offer comprehensive after-sales service and maintenance packages. Our technical support team provides remote assistance, and our field engineers can visit your facility for on-site maintenance and repairs. We also offer maintenance contracts with different service levels to suit your needs.",
-  },
-  {
-    question: "Can your machines be customized for specific packaging requirements?",
-    answer:
-      "We specialize in customizing our machines to meet specific packaging requirements. Our engineering team works closely with clients to understand their unique needs and develop tailored solutions that address their particular packaging challenges.",
-  },
-  {
-    question: "What training do you provide for machine operators?",
-    answer:
-      "We provide comprehensive training for machine operators as part of our installation service. This includes hands-on operational training, basic maintenance procedures, troubleshooting techniques, and safety protocols. Additional advanced training sessions can be arranged if needed.",
-  },
-  {
-    question: "Do you offer spare parts for your machines?",
-    answer:
-      "Yes, we maintain a comprehensive inventory of spare parts for all our machines. We recommend keeping essential spare parts on hand to minimize downtime in case of part replacement needs. Our service contracts include discounts on spare parts purchases.",
-  },
-])
-
 export default function ContactPage() {
   return (
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Header />
 
       {/* Page Header with bg-banner */}
       <section className="relative py-16 md:py-20 text-white overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/bg-banner.jpg)' }}
+          style={{ backgroundImage: "url(/images/bg-banner.jpg)" }}
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,9 +74,13 @@ export default function ContactPage() {
       <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-4">Get Best Packing Machine Price in Pakistan</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-4">
+              Get Best Packing Machine Price in Pakistan
+            </h2>
             <p className="text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-              Looking for competitive packing machine prices in Pakistan? Want to buy small packing machines, automatic packing machines, shrink packaging machines, or vacuum packaging machines? If you are searching for packaging machine Lahore support, our local team is ready to help.
+              Looking for competitive packing machine prices in Pakistan? Want to buy small packing machines, automatic
+              packing machines, shrink packaging machines, or vacuum packaging machines? If you are searching for
+              packaging machine Lahore support, our local team is ready to help.
             </p>
           </div>
 
@@ -120,7 +95,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold tracking-tight mb-2">Our Location</h4>
-                  <p className="text-neutral-700 leading-relaxed">Glaxo Town, 20th Km, Ferozepur Road Lahore-54760, Pakistan</p>
+                  <p className="text-neutral-700 leading-relaxed">
+                    Glaxo Town, 20th Km, Ferozepur Road Lahore-54760, Pakistan
+                  </p>
                 </div>
               </div>
 
@@ -132,12 +109,20 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-lg font-semibold tracking-tight mb-2">Phone Numbers</h4>
                   <p className="text-neutral-700 leading-relaxed mb-1">
-                    <a href="tel:+923330184756" className="hover:opacity-80 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm" style={{color: '#c8a415'}}>
+                    <a
+                      href="tel:+923330184756"
+                      className="hover:opacity-80 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm"
+                      style={{ color: "#c8a415" }}
+                    >
                       +92-333-0184756
                     </a>
                   </p>
                   <p className="text-neutral-700 leading-relaxed">
-                    <a href="tel:+924235951301" className="hover:opacity-80 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm" style={{color: '#c8a415'}}>
+                    <a
+                      href="tel:+924235951301"
+                      className="hover:opacity-80 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm"
+                      style={{ color: "#c8a415" }}
+                    >
                       +92-42-35951301
                     </a>
                   </p>
@@ -152,7 +137,11 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-lg font-semibold tracking-tight mb-2">Email Address</h4>
                   <p className="text-neutral-700 leading-relaxed">
-                    <a href="mailto:info@detechnics.com" className="hover:opacity-80 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm" style={{color: '#c8a415'}}>
+                    <a
+                      href="mailto:info@detechnics.com"
+                      className="hover:opacity-80 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm"
+                      style={{ color: "#c8a415" }}
+                    >
                       info@detechnics.com
                     </a>
                   </p>
@@ -267,6 +256,7 @@ export default function ContactPage() {
 
       {/* FAQ Section */}
       <FAQSection
+        title="Frequently Asked Questions"
         faqs={[
           {
             question: "What is the typical lead time for machinery delivery?",
@@ -299,15 +289,19 @@ export default function ContactPage() {
 
       {/* Call to Action with bg-banner */}
       <section className="relative py-16 text-white overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/bg-banner.jpg)' }}
+          style={{ backgroundImage: "url(/images/bg-banner.jpg)" }}
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Buy Packing Machine at Best Price in Pakistan?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Buy Packing Machine at Best Price in Pakistan?
+          </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Get competitive packing machine prices in Pakistan. Our machine manufacturer team is ready to help you buy the perfect small packing machines, automatic packing machines, shrink packaging machines, vacuum packaging machines & airtight packaging solutions for your business.
+            Get competitive packing machine prices in Pakistan. Our machine manufacturer team is ready to help you buy
+            the perfect small packing machines, automatic packing machines, shrink packaging machines, vacuum packaging
+            machines & airtight packaging solutions for your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <LoadingButton
@@ -315,10 +309,15 @@ export default function ContactPage() {
               className="bg-white px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors"
               loadingText="Calling..."
             >
-              <span style={{color: '#c8a415'}}>
-Call Now</span>
+              <span style={{ color: "#c8a415" }}>Call Now</span>
             </LoadingButton>
-            <Link href="/quote-form" className="inline-flex items-center justify-center bg-white px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]" style={{color: '#c8a415'}}>Request Quote</Link>
+            <Link
+              href="/quote-form"
+              className="inline-flex items-center justify-center bg-white px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]"
+              style={{ color: "#c8a415" }}
+            >
+              Request Quote
+            </Link>
           </div>
         </div>
       </section>

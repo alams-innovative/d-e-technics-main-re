@@ -4,11 +4,10 @@ import HeroSlider from "@/components/hero-slider"
 import ProductCard from "@/components/product-card"
 import TestimonialCard from "@/components/testimonial-card"
 import IndustryCard from "@/components/industry-card"
-import FAQSection from "@/components/faq-section"
+import FAQSection from "@/components/seo/FAQSection"
 import CTASection from "@/components/cta-section"
 import SectionErrorBoundary from "@/components/section-error-boundary"
 import ServiceCard from "@/components/service-card"
-import { companyData, generateReviewSchema } from "@/lib/structured-data"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -52,86 +51,88 @@ const structuredData = {
   "@graph": [
     {
       "@type": "Organization",
-      "name": "D.E. Technics (Pvt.) Ltd.",
-      "alternateName": "Dynamic Engineering",
-      "url": "https://detechnics.com",
-      "logo": "https://detechnics.com/images/logo.png",
-      "description": "Leading packing machine manufacturer in Pakistan offering premium packaging solutions, small packing machines, automatic packing machines, shrink packaging machines, vacuum packaging machines & airtight packaging solutions since 1984",
-      "foundingDate": "1984-01-01",
-      "contactPoint": {
+      name: "D.E. Technics (Pvt.) Ltd.",
+      alternateName: "Dynamic Engineering",
+      url: "https://detechnics.com",
+      logo: "https://detechnics.com/images/logo.png",
+      description:
+        "Leading packing machine manufacturer in Pakistan offering premium packaging solutions, small packing machines, automatic packing machines, shrink packaging machines, vacuum packaging machines & airtight packaging solutions since 1984",
+      foundingDate: "1984-01-01",
+      contactPoint: {
         "@type": "ContactPoint",
-        "telephone": "+92-333-0184756",
-        "contactType": "customer service",
-        "email": "info@detechnics.com"
+        telephone: "+92-333-0184756",
+        contactType: "customer service",
+        email: "info@detechnics.com",
       },
-      "sameAs": [
+      sameAs: [
         "https://www.facebook.com/detechnicspk",
         "https://twitter.com/detechnicspk",
-        "https://www.youtube.com/@DETechnicsPK"
-      ]
+        "https://www.youtube.com/@DETechnicsPK",
+      ],
     },
     {
       "@type": "WebPage",
-      "name": "D.E. Technics - Advanced Packaging Machines & Solutions Since 1984",
-      "url": "https://detechnics.com",
-      "inLanguage": "en",
-      "description": "Leading manufacturer of HFFS machines, biscuit wrappers, wafer production lines & packaging automation.",
-      "datePublished": "2025-09-03",
-      "dateModified": "2025-09-03",
-      "image": {
+      name: "D.E. Technics - Advanced Packaging Machines & Solutions Since 1984",
+      url: "https://detechnics.com",
+      inLanguage: "en",
+      description:
+        "Leading manufacturer of HFFS machines, biscuit wrappers, wafer production lines & packaging automation.",
+      datePublished: "2025-09-03",
+      dateModified: "2025-09-03",
+      image: {
         "@type": "ImageObject",
-        "url": "https://detechnics.com/images/hero1.jpg",
-        "width": 1920,
-        "height": 1080
-      }
+        url: "https://detechnics.com/images/hero1.jpg",
+        width: 1920,
+        height: 1080,
+      },
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
+      mainEntity: [
         {
           "@type": "Question",
-          "name": "What industries does D.E. Technics serve?",
-          "acceptedAnswer": {
+          name: "What industries does D.E. Technics serve?",
+          acceptedAnswer: {
             "@type": "Answer",
-            "text": "The company provides packaging solutions for Food & Beverage, Confectionery Items and Pharmaceuticals."
-          }
+            text: "The company provides packaging solutions for Food & Beverage, Confectionery Items and Pharmaceuticals.",
+          },
         },
         {
           "@type": "Question",
-          "name": "Which products are highlighted on the home page?",
-          "acceptedAnswer": {
+          name: "Which products are highlighted on the home page?",
+          acceptedAnswer: {
             "@type": "Answer",
-            "text": "Featured products include horizontal form‑fill‑seal machines (such as the DE‑210 and DE‑2000CW), biscuit‑wrapping machines and wafer equipment."
-          }
+            text: "Featured products include horizontal form‑fill‑seal machines (such as the DE‑210 and DE‑2000CW), biscuit‑wrapping machines and wafer equipment.",
+          },
         },
         {
           "@type": "Question",
-          "name": "How does D.E. Technics ensure precision and quality?",
-          "acceptedAnswer": {
+          name: "How does D.E. Technics ensure precision and quality?",
+          acceptedAnswer: {
             "@type": "Answer",
-            "text": "They follow a client‑centric development process and use precision engineering to deliver reliable, high‑quality machines."
-          }
+            text: "They follow a client‑centric development process and use precision engineering to deliver reliable, high‑quality machines.",
+          },
         },
         {
           "@type": "Question",
-          "name": "What do clients say about D.E. Technics?",
-          "acceptedAnswer": {
+          name: "What do clients say about D.E. Technics?",
+          acceptedAnswer: {
             "@type": "Answer",
-            "text": "Testimonials mention improved production efficiency, reliable machines and attentive after‑sales support."
-          }
+            text: "Testimonials mention improved production efficiency, reliable machines and attentive after‑sales support.",
+          },
         },
         {
           "@type": "Question",
-          "name": "How can I contact D.E. Technics?",
-          "acceptedAnswer": {
+          name: "How can I contact D.E. Technics?",
+          acceptedAnswer: {
             "@type": "Answer",
-            "text": "Reach them by landline (+92 42 35272601‑02) or mobile (+92‑333‑0184756) or visit the facility at Glaxo Town, 20th Km, Ferozepur Road, Lahore 54760."
-          }
-        }
-      ]
-    }
-  ]
-} as const; /*
+            text: "Reach them by landline (+92 42 35272601‑02) or mobile (+92‑333‑0184756) or visit the facility at Glaxo Town, 20th Km, Ferozepur Road, Lahore 54760.",
+          },
+        },
+      ],
+    },
+  ],
+} as const /*
   "@graph": [
     {
       "@context": "https://schema.org",
@@ -293,7 +294,9 @@ export default function HomePage() {
             </h2>
             <p className="text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
               Discover our most popular small packing machines, automatic packing machines, shrink packaging machines,
-              vacuum packaging machines, airtight packaging machines, food packaging machines, powder packaging machines, sachet packaging machines, blister packaging machines, pillow packaging machines & plastic packaging machines with superior quality.
+              vacuum packaging machines, airtight packaging machines, food packaging machines, powder packaging
+              machines, sachet packaging machines, blister packaging machines, pillow packaging machines & plastic
+              packaging machines with superior quality.
             </p>
             <div className="text-center mt-8 md:mt-10">
               <Link
@@ -408,27 +411,33 @@ export default function HomePage() {
 
       {/* FAQ Section */}
       <FAQSection
+        title="Frequently Asked Questions"
         faqs={[
           {
             question: "What industries does D.E. Technics serve?",
-            answer: "The company provides packaging solutions for Food & Beverage, Confectionery Items and Pharmaceuticals."
+            answer:
+              "The company provides packaging solutions for Food & Beverage, Confectionery Items and Pharmaceuticals.",
           },
           {
             question: "Which products are highlighted on the home page?",
-            answer: "Featured products include horizontal form‑fill‑seal machines (such as the DE‑210 and DE‑2000CW), biscuit‑wrapping machines and wafer equipment."
+            answer:
+              "Featured products include horizontal form‑fill‑seal machines (such as the DE‑210 and DE‑2000CW), biscuit‑wrapping machines and wafer equipment.",
           },
           {
             question: "How does D.E. Technics ensure precision and quality?",
-            answer: "They follow a client‑centric development process and use precision engineering to deliver reliable, high‑quality machines."
+            answer:
+              "They follow a client‑centric development process and use precision engineering to deliver reliable, high‑quality machines.",
           },
           {
             question: "What do clients say about D.E. Technics?",
-            answer: "Testimonials mention improved production efficiency, reliable machines and attentive after‑sales support."
+            answer:
+              "Testimonials mention improved production efficiency, reliable machines and attentive after‑sales support.",
           },
           {
             question: "How can I contact D.E. Technics?",
-            answer: "Reach them by landline (+92 42 35272601‑02) or mobile (+92‑333‑0184756) or visit the facility at Glaxo Town, 20th Km, Ferozepur Road, Lahore 54760."
-          }
+            answer:
+              "Reach them by landline (+92 42 35272601‑02) or mobile (+92‑333‑0184756) or visit the facility at Glaxo Town, 20th Km, Ferozepur Road, Lahore 54760.",
+          },
         ]}
       />
 
@@ -446,7 +455,6 @@ export default function HomePage() {
       <div className="mt-0">
         <Footer />
       </div>
-
     </div>
   )
 }

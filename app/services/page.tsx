@@ -1,11 +1,11 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import FAQSection from "@/components/faq-section"
+import FAQSection from "@/components/seo/FAQSection"
 import Breadcrumb from "@/components/breadcrumb"
-import { generateServiceSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/structured-data"
-import { COMMON_BREADCRUMBS } from "@/lib/breadcrumb-utils"
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/lib/structured-data"
 import type { Metadata } from "next"
 import Link from "next/link"
+import { COMMON_BREADCRUMBS } from "@/constants/breadcrumbs" // Declare the variable before using it
 
 export const metadata: Metadata = {
   title: "Packing Machine Services & Support | D.E. Technics",
@@ -46,7 +46,8 @@ export const metadata: Metadata = {
 
 const serviceSchema = generateServiceSchema({
   name: "Packing Machine Services & Support",
-  description: "Comprehensive packing machine services including installation, maintenance, and technical support for food, confectionery, and pharmaceutical industries.",
+  description:
+    "Comprehensive packing machine services including installation, maintenance, and technical support for food, confectionery, and pharmaceutical industries.",
   provider: "D.E. Technics (Pvt.) Ltd.",
   areaServed: ["Pakistan", "UAE", "Saudi Arabia", "Bangladesh", "Sri Lanka"],
   serviceType: "Industrial Equipment Services",
@@ -54,32 +55,7 @@ const serviceSchema = generateServiceSchema({
 
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: "Home", url: "https://detechnics.com" },
-  { name: "Services", url: "https://detechnics.com/services" }
-])
-
-const faqSchema = generateFAQSchema([
-  {
-    question: "Which industries do your services cater to?",
-    answer:
-      "D.E. Technics designs packing machine solutions for the Food & Beverage, Confectionery Items and Pharmaceutical sectors with competitive packing machine price in Pakistan.",
-  },
-  {
-    question: "What capabilities do you offer?",
-    answer: "We provide advanced engineering, customized services and a commitment to quality and innovation.",
-  },
-  {
-    question: "How does the service process work?",
-    answer:
-      "Projects begin with an in-depth analysis of client requirements, followed by advanced technology and strict quality control.",
-  },
-  {
-    question: "Can you customize machines for unique applications?",
-    answer: "Yes, we specialize in tailoring packing machines to specific products and automatic packing machine needs.",
-  },
-  {
-    question: "What benefits do clients gain from your services?",
-    answer: "High-quality machines improve efficiency and reduce waste across various industries.",
-  },
+  { name: "Services", url: "https://detechnics.com/services" },
 ])
 
 export default function ServicesPage() {
@@ -87,15 +63,14 @@ export default function ServicesPage() {
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Header />
 
       {/* Page Header with bg-banner */}
       <section className="relative py-16 md:py-20 text-white overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/bg-banner.jpg)' }}
+          style={{ backgroundImage: "url(/images/bg-banner.jpg)" }}
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,7 +96,10 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div className="text-center p-6 md:p-8 bg-white rounded-2xl border border-neutral-200/60 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center" style={{backgroundColor: 'rgba(200, 164, 21, 0.1)'}}>
+              <div
+                className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: "rgba(200, 164, 21, 0.1)" }}
+              >
                 <img
                   src="/images/food-beverage-icon.png"
                   alt="Food and Beverage"
@@ -262,7 +240,8 @@ export default function ServicesPage() {
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-4">Our Comprehensive Services</h2>
             <p className="text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-              From consultation to after-sales support, we provide end-to-end solutions for your packing machine needs at competitive packing machine price in Pakistan.
+              From consultation to after-sales support, we provide end-to-end solutions for your packing machine needs
+              at competitive packing machine price in Pakistan.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -285,12 +264,16 @@ export default function ServicesPage() {
               </p>
             </div>
             <div className="bg-white p-6 md:p-8 rounded-2xl border border-neutral-200/60 shadow-sm">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4" style={{backgroundColor: 'rgba(200, 164, 21, 0.1)'}}>
-                <i className="fas fa-cogs text-2xl" style={{color: '#c8a415'}}></i>
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
+                style={{ backgroundColor: "rgba(200, 164, 21, 0.1)" }}
+              >
+                <i className="fas fa-cogs text-2xl" style={{ color: "#c8a415" }}></i>
               </div>
               <h3 className="text-xl font-semibold tracking-tight mb-3">Machine Design & Manufacturing</h3>
               <p className="text-neutral-700 leading-relaxed">
-                Custom packing machine design and manufacturing tailored to your specific product requirements at competitive packing machine price in Pakistan.
+                Custom packing machine design and manufacturing tailored to your specific product requirements at
+                competitive packing machine price in Pakistan.
               </p>
             </div>
           </div>
@@ -299,10 +282,12 @@ export default function ServicesPage() {
 
       {/* FAQ Section */}
       <FAQSection
+        title="Frequently Asked Questions"
         faqs={[
           {
             question: "Which industries do your services cater to?",
-            answer: "D.E. Technics designs packing machine solutions for the Food & Beverage, Confectionery Items and Pharmaceutical sectors with competitive packing machine price in Pakistan.",
+            answer:
+              "D.E. Technics designs packing machine solutions for the Food & Beverage, Confectionery Items and Pharmaceutical sectors with competitive packing machine price in Pakistan.",
           },
           {
             question: "What capabilities do you offer?",
@@ -310,11 +295,13 @@ export default function ServicesPage() {
           },
           {
             question: "How does the service process work?",
-            answer: "Projects begin with an in-depth analysis of client requirements, followed by advanced technology and strict quality control.",
+            answer:
+              "Projects begin with an in-depth analysis of client requirements, followed by advanced technology and strict quality control.",
           },
           {
             question: "Can you customize machines for unique applications?",
-            answer: "Yes, we specialize in tailoring packing machines to specific products and automatic packing machine needs.",
+            answer:
+              "Yes, we specialize in tailoring packing machines to specific products and automatic packing machine needs.",
           },
           {
             question: "What benefits do clients gain from your services?",
@@ -325,9 +312,9 @@ export default function ServicesPage() {
 
       {/* Call to Action with bg-banner */}
       <section className="relative py-16 text-white overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/bg-banner.jpg)' }}
+          style={{ backgroundImage: "url(/images/bg-banner.jpg)" }}
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -337,8 +324,19 @@ export default function ServicesPage() {
             solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="inline-flex items-center justify-center bg-white px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]" style={{color: '#c8a415'}}>Contact Us Today</Link>
-            <Link href="/products" className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-gray-800 transition-colors min-h-[44px]">Explore Products</Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center bg-white px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]"
+              style={{ color: "#c8a415" }}
+            >
+              Contact Us Today
+            </Link>
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-gray-800 transition-colors min-h-[44px]"
+            >
+              Explore Products
+            </Link>
           </div>
         </div>
       </section>
