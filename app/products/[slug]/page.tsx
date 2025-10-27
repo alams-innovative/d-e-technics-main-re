@@ -7,14 +7,13 @@ import { getProductBySlug, getRelatedProducts, productData } from "@/lib/product
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import InternalLinks from "@/components/internal-links"
 import CTASection from "@/components/cta-section"
 import ProductGallery from "@/components/product-gallery"
 import ProductRating from "@/components/product-rating"
 import ProductShare from "@/components/product-share"
-import Tabs from "@/components/product/Tabs"
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd"
 import FAQSection from "@/components/seo/FAQSection"
+import ProductDetailsSection from "./ProductDetailsSection"
 
 // Generate static params for all products
 export async function generateStaticParams() {
@@ -98,15 +97,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         name: "D.E. Technics (Pvt.) Ltd.",
       },
     },
-    ...(product.rating && product.reviews && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: product.rating.toString(),
-        reviewCount: product.reviews.toString(),
-        bestRating: "5",
-        worstRating: "1",
-      },
-    }),
+    ...(product.rating &&
+      product.reviews && {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: product.rating.toString(),
+          reviewCount: product.reviews.toString(),
+          bestRating: "5",
+          worstRating: "1",
+        },
+      }),
     additionalProperty: Object.entries(product.specifications).map(([key, value]) => ({
       "@type": "PropertyValue",
       name: key,
@@ -123,6 +123,63 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       { "@type": "ListItem", position: 3, name: product.name, item: `https://detechnics.com/products/${slug}` },
     ],
   }
+
+  const tabsData = [
+    {
+      id: "description",
+      label: "Description",
+      content: (
+        <div className="prose max-w-none">
+          <p className="text-neutral-700 text-lg leading-relaxed">{product.description}</p>
+        </div>
+      ),
+    },
+    {
+      id: "specifications",
+      label: "Specifications",
+      content: (
+        <div>
+          <div className="bg-white rounded-2xl border border-neutral-200/60 shadow-sm overflow-hidden">
+            <div className="text-white p-6 md:p-8" style={{ backgroundColor: "#c8a415" }}>
+              <h3 className="text-xl font-semibold">{product.name} Specifications</h3>
+            </div>
+            <div className="p-6 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Object.entries(product.specifications).map(([key, value]) => (
+                  <div key={key} className="flex justify-between items-center py-3 border-b border-neutral-200">
+                    <span className="font-medium text-neutral-700">{key}:</span>
+                    <span className="text-neutral-900">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "applications",
+      label: "Applications",
+      content: (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {product.applications.map((application, index) => (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm text-center hover:shadow-md transition-shadow duration-200"
+            >
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: "rgba(200, 164, 21, 0.1)" }}
+              >
+                <i className="fas fa-industry text-2xl" style={{ color: "#c8a415" }}></i>
+              </div>
+              <h3 className="font-semibold text-neutral-800">{application}</h3>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+  ]
 
   return (
     <div>
@@ -224,71 +281,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Details Tabs: Description / Specifications / Applications */}
-      <section className="py-8 md:py-10">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Tabs
-            tabs={[
-              {
-                id: "description",
-                label: "Description",
-                content: (
-                  <div id="description" className="prose max-w-none">
-                    <p className="text-neutral-700 text-lg leading-relaxed">{product.description}</p>
-                  </div>
-                ),
-              },
-              {
-                id: "specifications",
-                label: "Specifications",
-                content: (
-                  <div id="specifications">
-                    <div className="bg-white rounded-2xl border border-neutral-200/60 shadow-sm overflow-hidden">
-                      <div className="text-white p-6 md:p-8" style={{ backgroundColor: "#c8a415" }}>
-                        <h3 className="text-xl font-semibold">{product.name} Specifications</h3>
-                      </div>
-                      <div className="p-6 md:p-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          {Object.entries(product.specifications).map(([key, value]) => (
-                            <div
-                              key={key}
-                              className="flex justify-between items-center py-3 border-b border-neutral-200"
-                            >
-                              <span className="font-medium text-neutral-700">{key}:</span>
-                              <span className="text-neutral-900">{value}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ),
-              },
-              {
-                id: "applications",
-                label: "Applications",
-                content: (
-                  <div id="applications" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {product.applications.map((application, index) => (
-                      <div
-                        key={index}
-                        className="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm text-center hover:shadow-md transition-shadow duration-200"
-                      >
-                        <div
-                          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                          style={{ backgroundColor: "rgba(200, 164, 21, 0.1)" }}
-                        >
-                          <i className="fas fa-industry text-2xl" style={{ color: "#c8a415" }}></i>
-                        </div>
-                        <h3 className="font-semibold text-neutral-800">{application}</h3>
-                      </div>
-                    ))}
-                  </div>
-                ),
-              },
-            ]}
-          />
-        </div>
-      </section>
+      <ProductDetailsSection tabs={tabsData} />
 
       {/* Product Features */}
       <section className="py-12 md:py-16">
@@ -329,60 +322,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 />
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Specifications */}
-      <section id="specifications" className="py-12 md:py-16">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-center mb-8 md:mb-12">
-            Technical Specifications
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl border border-neutral-200/60 shadow-sm overflow-hidden">
-              <div className="bg-blue-600 text-white p-6 md:p-8">
-                <h3 className="text-xl font-semibold">{product.name} Specifications</h3>
-              </div>
-              <div className="p-6 md:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center py-3 border-b border-neutral-200">
-                      <span className="font-medium text-neutral-700">{key}:</span>
-                      <span className="text-neutral-900">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Applications */}
-      <section className="py-12 md:py-16 bg-gray-50">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-center mb-8 md:mb-12">Applications</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {product.applications.map((application, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm text-center hover:shadow-md transition-shadow duration-200"
-              >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                  style={{ backgroundColor: "rgba(200, 164, 21, 0.1)" }}
-                >
-                  <i className="fas fa-industry text-2xl" style={{ color: "#c8a415" }}></i>
-                </div>
-                <h3 className="font-semibold text-neutral-800">{application}</h3>
-              </div>
-            ))}
-          </div>
-
-          {/* Internal Links Section */}
-          <div className="mt-12">
-            <InternalLinks currentPage={`/products/${slug}`} category={product.category} />
           </div>
         </div>
       </section>

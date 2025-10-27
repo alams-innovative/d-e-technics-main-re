@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useId, useState, useCallback, KeyboardEvent } from "react"
+import { useId, useState, useCallback, type KeyboardEvent, useEffect } from "react"
 
 export interface TabItem {
   id: string
@@ -19,17 +19,26 @@ export default function Tabs({ tabs, initialId, className = "" }: TabsProps) {
   const [active, setActive] = useState<string>(initialId || tabs[0]?.id)
   const tabsId = useId()
 
-  const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-    const currentIdx = tabs.findIndex(t => t.id === active)
-    if (currentIdx < 0) return
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault()
-      setActive(tabs[(currentIdx + 1) % tabs.length].id)
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault()
-      setActive(tabs[(currentIdx - 1 + tabs.length) % tabs.length].id)
+  useEffect(() => {
+    if (initialId) {
+      setActive(initialId)
     }
-  }, [active, tabs])
+  }, [initialId])
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      const currentIdx = tabs.findIndex((t) => t.id === active)
+      if (currentIdx < 0) return
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault()
+        setActive(tabs[(currentIdx + 1) % tabs.length].id)
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault()
+        setActive(tabs[(currentIdx - 1 + tabs.length) % tabs.length].id)
+      }
+    },
+    [active, tabs],
+  )
 
   return (
     <div className={className}>
