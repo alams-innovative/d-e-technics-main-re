@@ -5,7 +5,6 @@ import ProductCard from "@/components/product-card"
 import TestimonialCard from "@/components/testimonial-card"
 import IndustryCard from "@/components/industry-card"
 import FAQSection from "@/components/seo/FAQSection"
-import CTASection from "@/components/cta-section"
 import SectionErrorBoundary from "@/components/section-error-boundary"
 import ServiceCard from "@/components/service-card"
 import type { Metadata } from "next"
@@ -442,15 +441,39 @@ export default function HomePage() {
       />
 
       {/* Call to Action */}
-      <CTASection
-        title="Ready to Buy Best Quality Packing Machine in Pakistan?"
-        description="Contact us today to get premium packing machine solutions in Pakistan. Our small packing machines, automatic packing machines, shrink packaging machines, vacuum packaging machines, airtight packaging machines, food packaging machines, powder packaging machines, blister packaging machines, filling and packaging machines & sealing machines for packaging can improve your efficiency and product quality."
-        primaryButtonText="Contact Us"
-        primaryButtonHref="/contact"
-        secondaryButtonText="Explore Products"
-        secondaryButtonHref="/products"
-        className="mb-0"
-      />
+      <section className="relative py-16 text-white overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url(/images/bg-banner.jpg)" }}
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Buy Best Quality Packing Machine in Pakistan?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Contact us today to get premium packing machine solutions in Pakistan. Our small packing machines, automatic
+            packing machines, shrink packaging machines, vacuum packaging machines, airtight packaging machines, food
+            packaging machines, powder packaging machines, blister packaging machines, filling and packaging machines &
+            sealing machines for packaging can improve your efficiency and product quality.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center bg-white px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px] font-semibold"
+              style={{ color: "#c8a415" }}
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-gray-800 transition-colors min-h-[44px] font-semibold"
+            >
+              Explore Products
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <div className="mt-0">
         <Footer />
