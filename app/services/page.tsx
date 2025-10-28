@@ -111,8 +111,8 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold tracking-tight mb-4">Food and Beverage</h3>
               <p className="text-neutral-700 leading-relaxed">
-                Food processing machinery, we empower the food and beverage industry to meet consumer demands
-                efficiently & sustainably.
+                Our advanced food processing machinery empowers the food and beverage industry to meet consumer demands
+                efficiently and sustainably with reliable packaging solutions.
               </p>
             </div>
 
@@ -129,8 +129,8 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold tracking-tight mb-4">Confectionery Items</h3>
               <p className="text-neutral-700 leading-relaxed">
-                With cutting-edge automation & machinery, we optimize manufacturing workflows for increased efficiency &
-                productivity.
+                We provide specialized packaging solutions for biscuits, wafers, chocolates, and candies with
+                cutting-edge automation that ensures product freshness and extends shelf life.
               </p>
             </div>
 
@@ -147,8 +147,8 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-semibold tracking-tight mb-4">Pharmaceuticals</h3>
               <p className="text-neutral-700 leading-relaxed">
-                Design & manufacture for pharma production & medical device manufacturing, ensuring quality & compliance
-                at every step.
+                We design and manufacture precision packaging equipment for pharmaceutical production and medical device
+                manufacturing, ensuring quality, compliance, and safety at every step.
               </p>
             </div>
           </div>

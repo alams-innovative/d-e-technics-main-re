@@ -265,19 +265,19 @@ export default function HomePage() {
             <IndustryCard
               icon="/images/food-beverage-icon.png"
               title="Food and Beverage Packing Machines"
-              description="Small packing machines and automatic packing machine solutions for food processing. Our vacuum packaging machines, airtight packaging machines, juice packaging machines, dairy packaging machines, snack food packaging machines, bakery packaging machines, and food packaging machines ensure efficient, hygienic packing for bakery, snacks, and beverage products with premium quality in Pakistan."
+              description="We provide advanced packaging solutions for the food and beverage industry, including bakery products, snacks, juices, and dairy items. Our machines ensure hygienic, efficient packaging that maintains product freshness and meets food safety standards."
               bgColor="bg-yellow-50"
             />
             <IndustryCard
               icon="/images/confectionery-icon.jpg"
               title="Confectionery Items Packing Machines"
-              description="Specialized shrink packaging machines, candy packaging machines, chocolate packaging machines and automatic packing machines for confectionery manufacturing. Our small packing machines, pillow packaging machines and sachet packaging machines deliver precise wrapping for chocolates, candies, and sweets with optimal quality in Pakistan."
+              description="Our specialized wrapping machines deliver precise, high-speed packaging for chocolates, candies, and sweets. We offer customized solutions that protect product quality while maintaining attractive presentation and extended shelf life."
               bgColor="bg-pink-100"
             />
             <IndustryCard
               icon="/images/pharmaceutical-icon.webp"
               title="Pharmaceuticals Packing Machines"
-              description="High-precision vacuum packaging machines, airtight packaging machines, blister packaging machines, capsule blister packaging machines and table top blister packaging machines for pharmaceutical products. Our automatic packing machines and sealing machines for packaging ensure sterile, compliant packaging solutions with superior quality."
+              description="We design and manufacture high-precision packaging equipment for pharmaceutical products, including blister packaging and sterile sealing systems. Our machines ensure compliance with regulatory standards while maintaining product integrity and safety."
               bgColor="bg-green-100"
             />
           </div>
