@@ -36,6 +36,8 @@ export default function ProductGallery({
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
+            quality={85}
           />
         </div>
       </div>
@@ -60,6 +62,9 @@ export default function ProductGallery({
                   alt={`${image.alt} thumbnail`}
                   fill
                   className="object-cover"
+                  loading="lazy"
+                  sizes="64px"
+                  quality={75}
                 />
               </button>
             ))}

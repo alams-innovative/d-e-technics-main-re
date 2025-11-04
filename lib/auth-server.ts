@@ -1,8 +1,9 @@
 'use server'
 
 import { logger } from '@/lib/logger'
+import bcrypt from 'bcryptjs'
 
-// Environment-aware password hashing with argon2 fallback
+// Environment-aware password hashing with bcrypt
 export async function hashPassword(password: string): Promise<string> {
   const deploymentEnv = process.env.DEPLOYMENT_ENV || 'production'
   
@@ -11,17 +12,12 @@ export async function hashPassword(password: string): Promise<string> {
     return hashPasswordWebCrypto(password)
   }
   
-  // Use Argon2id for production (stronger security)
+  // Use bcrypt for production (browser-compatible, secure)
   try {
-    const argon2 = await import('argon2')
-    return await argon2.hash(password, {
-      type: argon2.argon2id,
-      memoryCost: 2 ** 16, // 64 MB
-      timeCost: 3,
-      parallelism: 1,
-    })
+    const saltRounds = 12 // Good balance of security and performance
+    return await bcrypt.hash(password, saltRounds)
   } catch (error) {
-    logger.error('Argon2 hashing failed, falling back to Web Crypto', { error: error instanceof Error ? error.message : 'Unknown error' })
+    logger.error('Bcrypt hashing failed, falling back to Web Crypto', { error: error instanceof Error ? error.message : 'Unknown error' })
     return hashPasswordWebCrypto(password)
   }
 }
@@ -31,7 +27,7 @@ export async function verifyPassword(password: string, hashedPassword: string): 
   
   // Detect hash type by format
   const isWebCryptoHash = isWebCryptoFormat(hashedPassword)
-  const isArgon2Hash = isArgon2Format(hashedPassword)
+  const isBcryptHash = isBcryptFormat(hashedPassword)
   
   // For v0 environment, always use Web Crypto
   if (deploymentEnv === 'v0') {
@@ -39,26 +35,24 @@ export async function verifyPassword(password: string, hashedPassword: string): 
   }
   
   // Use format-based detection
-  if (isWebCryptoHash && !isArgon2Hash) {
+  if (isWebCryptoHash && !isBcryptHash) {
     return verifyPasswordWebCrypto(password, hashedPassword)
   }
   
-  if (isArgon2Hash) {
+  if (isBcryptHash) {
     try {
-      const argon2 = await import('argon2')
-      return await argon2.verify(hashedPassword, password)
+      return await bcrypt.compare(password, hashedPassword)
     } catch (error) {
-      logger.error('Argon2 verification failed', { error: error instanceof Error ? error.message : 'Unknown error' })
+      logger.error('Bcrypt verification failed', { error: error instanceof Error ? error.message : 'Unknown error' })
       return false
     }
   }
   
   // Fallback: try both methods if format is ambiguous
   try {
-    const argon2 = await import('argon2')
-    return await argon2.verify(hashedPassword, password)
+    return await bcrypt.compare(password, hashedPassword)
   } catch (error) {
-    logger.error('Argon2 verification failed, trying Web Crypto fallback', { error: error instanceof Error ? error.message : 'Unknown error' })
+    logger.error('Bcrypt verification failed, trying Web Crypto fallback', { error: error instanceof Error ? error.message : 'Unknown error' })
     return verifyPasswordWebCrypto(password, hashedPassword)
   }
 }
@@ -90,9 +84,9 @@ async function verifyPasswordWebCrypto(password: string, hashedPassword: string)
 }
 
 // Hash format detection functions
-function isArgon2Format(hash: string): boolean {
-  // Argon2 hashes start with $argon2i$, $argon2d$, or $argon2id$
-  return /^\$argon2(i|d|id)\$/.test(hash)
+function isBcryptFormat(hash: string): boolean {
+  // Bcrypt hashes start with $2a$, $2b$, or $2y$ followed by cost and salt
+  return /^\$2[aby]\$\d{2}\$/.test(hash)
 }
 
 function isWebCryptoFormat(hash: string): boolean {

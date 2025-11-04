@@ -7,19 +7,13 @@
 //   3) CLI flag:
 //        node scripts/hash_password.cjs --password "yourSecret"
 //
-// Output: Argon2id PHC string suitable for storing in your DB
-//   $argon2id$v=19$m=19456,t=2,p=1$<salt_b64>$<hash_b64>
+// Output: Bcrypt hash string suitable for storing in your DB
+//   $2b$12$<salt+hash>
 
-const argon2 = require('argon2');
+const bcrypt = require('bcryptjs');
 const readline = require('readline');
 
-const CONFIG = {
-  type: argon2.argon2id, // Argon2id (recommended)
-  memoryCost: 19456,     // ~19 MB
-  timeCost: 2,           // iterations
-  parallelism: 1,        // threads/lanes
-  hashLength: 32,        // 32 bytes (256-bit)
-};
+const SALT_ROUNDS = 12; // Good balance of security and performance
 
 function getCliPasswordArg() {
   const idx = process.argv.findIndex(a => a === '--password' || a === '-p');
@@ -48,9 +42,9 @@ async function main() {
     process.exit(1);
   }
 
-  const hash = await argon2.hash(inputPwd, CONFIG);
-  // PHC string example:
-  // $argon2id$v=19$m=19456,t=2,p=1$<salt_b64>$<hash_b64>
+  const hash = await bcrypt.hash(inputPwd, SALT_ROUNDS);
+  // Bcrypt hash example:
+  // $2b$12$<salt+hash>
   console.log(hash);
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 
 type HeroSliderProps = {
   images?: { src: string; alt?: string }[];
@@ -41,13 +42,21 @@ export default function HeroSlider({
       {slides.map((s, i) => (
         <div
           key={s.src}
-          className={`absolute inset-0 bg-center bg-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 transition-opacity duration-500 ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
-          style={{ backgroundImage: `url(${s.src})` }}
-          role="img"
-          aria-label={s.alt || "Hero slide"}
-        />
+        >
+          <Image
+            src={s.src}
+            alt={s.alt || "Hero slide"}
+            fill
+            priority={i === 0}
+            loading={i === 0 ? "eager" : "lazy"}
+            sizes="100vw"
+            className="object-cover object-center"
+            quality={85}
+          />
+        </div>
       ))}
 
       {/* Navigation Dots */}

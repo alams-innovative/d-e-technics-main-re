@@ -43,3 +43,4 @@ package-lock.json
 pnpm-workspace.yaml
 tsconfig.tsbuildinfo
 .vercel
+.env*.local

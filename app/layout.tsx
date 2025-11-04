@@ -12,6 +12,7 @@ import FabWhatsApp from "@/components/FabWhatsApp"
 import PublicOnly from "@/components/common/public-only"
 import "./globals.css"
 import 'react-phone-number-input/style.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -72,27 +73,14 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <head>
         {/* Optimized resource hints for Core Web Vitals */}
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         
         {/* Optimized font loading for Core Web Vitals */}
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-        />
-        
-        {/* Defer non-critical Font Awesome */}
-        <link
-          rel="preload"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          as="style"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
         
         {/* Preload critical hero image for LCP optimization */}

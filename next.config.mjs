@@ -1,3 +1,9 @@
+import bundleAnalyzer from '@next/bundle-analyzer'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 /** @type {import('next').NextConfig} */
 const isV0Environment = process.env.DEPLOYMENT_ENV === 'v0'
 
@@ -10,12 +16,15 @@ const nextConfig = {
   // existing
   trailingSlash: false,
 
-  // ✅ Image/output hints - simplified for v0
+  // ✅ Image/output hints - optimized for performance
   images: {
     formats: isV0Environment ? ['image/webp'] : ['image/avif', 'image/webp'],
-    deviceSizes: isV0Environment ? [640, 1080, 1920] : [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    // Optimized device sizes for common breakpoints (removed 3840px)
+    deviceSizes: isV0Environment ? [640, 1080, 1920] : [640, 750, 828, 1080, 1200, 1920],
+    // Optimized image sizes for thumbnails and small images
     imageSizes: isV0Environment ? [32, 64, 128] : [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: isV0Environment ? 0 : 60,
+    // Increased cache TTL for better performance (1 day)
+    minimumCacheTTL: isV0Environment ? 0 : 86400,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
@@ -191,4 +200,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

@@ -313,6 +313,7 @@ export default function HomePage() {
               description="Premium horizontal form fill seal machine with servo control. Up to 250 packs/min for biscuits, soap bars & bakery items. Superior automatic packing machine quality in Pakistan."
               link="/products/de-2050ss"
               linkText="View Details →"
+              priority={true}
             />
             <ProductCard
               image="/images/product-2.jpg"
@@ -320,6 +321,7 @@ export default function HomePage() {
               description="Advanced on-edge biscuit wrapping with dual-magazine feeding. High-speed small packing machine with synchronized pushers. Best packing machine quality in Pakistan."
               link="/products/de-4050"
               linkText="View Details →"
+              priority={true}
             />
             <ProductCard
               image="/images/product-3.jpg"
@@ -327,6 +329,7 @@ export default function HomePage() {
               description="Complete wafer production lines from leading wafer lines manufacturer. Available in 31, 45, and 63-plate configurations with integrated automation systems."
               link="/wafer-lines"
               linkText="View Details →"
+              priority={true}
             />
           </div>
         </div>

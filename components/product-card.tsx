@@ -11,9 +11,10 @@ interface ProductCardProps {
   description: string
   link: string
   linkText?: string
+  priority?: boolean
 }
 
-export default function ProductCard({ image, title, description, link, linkText = "Learn More →" }: ProductCardProps) {
+export default function ProductCard({ image, title, description, link, linkText = "Learn More →", priority = false }: ProductCardProps) {
   // Fallback share URL is the card link (canonical product URL)
   const shareUrl = typeof window === 'undefined' ? link : (new URL(link, window.location.origin)).toString()
   const encodedTitle = encodeURIComponent(title)
@@ -32,7 +33,10 @@ export default function ProductCard({ image, title, description, link, linkText 
           width={300}
           height={200}
           className="w-full aspect-[4/3] object-cover"
-          loading="lazy"
+          priority={priority}
+          loading={priority ? "eager" : "lazy"}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          quality={85}
         />
       </ImageErrorBoundary>
       <div className="p-6">
