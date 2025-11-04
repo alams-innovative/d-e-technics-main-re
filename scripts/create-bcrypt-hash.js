@@ -38,8 +38,8 @@ function promptPassword(question = 'Enter password to hash: ') {
 async function main() {
   console.log('🔐 Bcrypt Password Hash Generator\n');
   
-  // Get password from args, env, or prompt
-  const password = process.env.PASSWORD || getPasswordFromArgs() || await promptPassword();
+  // Get password from args or prompt
+  const password = getPasswordFromArgs() || await promptPassword();
   
   if (!password) {
     console.error('❌ No password provided.');

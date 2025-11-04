@@ -10,9 +10,8 @@ async function deploymentHook() {
   console.log('🚀 Running D.E. Technics deployment hook...');
   
   try {
-    const changedUrls = process.env.CHANGED_FILES ? 
-      process.env.CHANGED_FILES.split(',').map(f => `https://detechnics.com/${f.replace('public/', '')}`) : 
-      ALL_URLS;
+    // Use all URLs by default (CHANGED_FILES can be passed via CLI if needed)
+    const changedUrls = ALL_URLS;
     
     await submitToIndexNow(changedUrls);
     console.log('✅ Successfully submitted URLs to IndexNow');

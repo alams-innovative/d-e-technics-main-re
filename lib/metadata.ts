@@ -63,11 +63,6 @@ export function generateMetadata(config: SEOConfig): Metadata {
     },
     verification: {
       google: process.env.GOOGLE_SITE_VERIFICATION,
-      yandex: process.env.YANDEX_VERIFICATION,
-      yahoo: process.env.YAHOO_SITE_VERIFICATION,
-      other: {
-        "msvalidate.01": process.env.BING_SITE_VERIFICATION || "",
-      },
     },
   }
 }

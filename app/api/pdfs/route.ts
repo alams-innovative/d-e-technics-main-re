@@ -17,11 +17,10 @@ type ListResult = {
 
 export async function GET(req: Request) {
   try {
-    // Prefer read-only token for listing; fall back to read-write if needed
-    const token = process.env.BLOB_READ_ONLY_TOKEN || process.env.BLOB_READ_WRITE_TOKEN
+    const token = process.env.BLOB_READ_WRITE_TOKEN
     if (!token) {
       return NextResponse.json(
-        { success: false, error: "Missing BLOB_READ_ONLY_TOKEN or BLOB_READ_WRITE_TOKEN in environment" },
+        { success: false, error: "Missing BLOB_READ_WRITE_TOKEN in environment" },
         { status: 500 }
       )
     }

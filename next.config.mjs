@@ -1,7 +1,8 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 
+// Enable bundle analyzer only when explicitly set via CLI: ANALYZE=true pnpm build
 const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: false, // Set to true manually when needed for analysis
 })
 
 /** @type {import('next').NextConfig} */

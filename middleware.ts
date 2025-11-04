@@ -193,7 +193,7 @@ export async function middleware(request: NextRequest) {
     // Always set Vary: Origin to prevent cache issues
     response.headers.set('Vary', 'Origin')
     
-    if (debugOpenCors || (((process.env.NODE_ENV || 'production') === 'production') && process.env.OPEN_CORS === 'true')) {
+    if (debugOpenCors) {
       // Fully open CORS: reflect origin when present (supports credentials), otherwise allow *
       if (origin) {
         response.headers.set('Access-Control-Allow-Origin', origin)

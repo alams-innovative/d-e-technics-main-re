@@ -58,8 +58,8 @@ const toEmail = getCliArg('to', defaultTo);
 const subject = getCliArg('subject', `Test Email from D.E. Technics (${new Date().toLocaleString()})`);
 const textBody = getCliArg('text', 'This is a test email to verify SMTP configuration.');
 
-// Allow forcing TLS with SMTP_SECURE (supports common typo SMPT_SECURE). Default: true per user request
-const secureEnvRaw = process.env.SMTP_SECURE ?? process.env.SMPT_SECURE;
+// Allow forcing TLS with SMTP_SECURE. Default: true per user request
+const secureEnvRaw = process.env.SMTP_SECURE;
 const isSecure = parseBool(secureEnvRaw, true);
 const requireTLS = !isSecure && smtpPort !== 25;
 

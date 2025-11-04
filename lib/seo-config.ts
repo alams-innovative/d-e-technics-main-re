@@ -95,9 +95,6 @@ export const seoConfig: SEOConfig = {
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
-    bing: process.env.BING_SITE_VERIFICATION,
-    yandex: process.env.YANDEX_VERIFICATION,
-    yahoo: process.env.YAHOO_SITE_VERIFICATION,
   },
   openingHours: {
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

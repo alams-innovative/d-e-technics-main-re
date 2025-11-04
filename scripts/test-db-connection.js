@@ -33,9 +33,9 @@ async function testConnection() {
     ssl: {
       rejectUnauthorized: false
     },
-    min: parseInt(env.DB_POOL_MIN) || 2,
-    max: parseInt(env.DB_POOL_MAX) || 10,
-    idleTimeoutMillis: parseInt(env.DB_POOL_IDLE_TIMEOUT) || 30000,
+    min: 2,
+    max: 10,
+    idleTimeoutMillis: 30000,
   });
 
   console.log('🔍 Testing connection to Neon PostgreSQL...');

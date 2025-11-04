@@ -36,9 +36,9 @@ async function promptPassword(question = 'Enter password: ') {
 
 async function main() {
   const cliPwd = getCliPasswordArg();
-  const inputPwd = process.env.PASSWORD || cliPwd || (await promptPassword());
+  const inputPwd = cliPwd || (await promptPassword());
   if (!inputPwd) {
-    console.error('No password provided. Use env PASSWORD, --password flag, or enter interactively.');
+    console.error('No password provided. Use --password flag or enter interactively.');
     process.exit(1);
   }
 
