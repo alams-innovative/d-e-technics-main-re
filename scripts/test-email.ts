@@ -1,5 +1,6 @@
 // test-email.ts - SMTP Configuration Tester
 // Run with: npx tsx test-email.ts
+// Make sure to set SMTP_USER and SMTP_PASSWORD environment variables
 
 import nodemailer from 'nodemailer';
 
@@ -24,6 +25,21 @@ interface ConfigTest {
   config: SMTPConfig;
 }
 
+// Get credentials from environment variables
+// Set these before running: 
+// Windows CMD: set SMTP_USER=your@email.com && set SMTP_PASSWORD=yourpass && npx tsx scripts/test-email.ts
+// Windows PowerShell: $env:SMTP_USER="your@email.com"; $env:SMTP_PASSWORD="yourpass"; npx tsx scripts/test-email.ts
+const SMTP_USER = process.env.SMTP_USER || '';
+const SMTP_PASSWORD = process.env.SMTP_PASSWORD || '';
+
+if (!SMTP_USER || !SMTP_PASSWORD) {
+  console.error('❌ Error: SMTP_USER and SMTP_PASSWORD must be set as environment variables');
+  console.error('\nUsage:');
+  console.error('  Windows CMD: set SMTP_USER=your@email.com && set SMTP_PASSWORD=yourpass && npx tsx scripts/test-email.ts');
+  console.error('  Windows PowerShell: $env:SMTP_USER="your@email.com"; $env:SMTP_PASSWORD="yourpass"; npx tsx scripts/test-email.ts');
+  process.exit(1);
+}
+
 // Test configurations - try each one
 const configurations: ConfigTest[] = [
   {
@@ -33,8 +49,8 @@ const configurations: ConfigTest[] = [
       port: 465,
       secure: true,
       auth: {
-        user: "noreply@detechnics.com", 
-        pass: "tlJBkUgAcN{W"
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD
       }
     }
   },
@@ -45,8 +61,8 @@ const configurations: ConfigTest[] = [
       port: 587,
       secure: false,
       auth: {
-        user: "noreply@detechnics.com",
-        pass: "tlJBkUgAcN{W"
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD
       }
     }
   },
@@ -57,8 +73,8 @@ const configurations: ConfigTest[] = [
       port: 465,
       secure: true,
       auth: {
-        user: "noreply@detechnics.com",
-        pass: "tlJBkUgAcN{W"
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD
       }
     }
   },
@@ -69,8 +85,8 @@ const configurations: ConfigTest[] = [
       port: 587,
       secure: false,
       auth: {
-        user: "noreply@detechnics.com",
-        pass: "tlJBkUgAcN{W"
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD
       }
     }
   },
@@ -81,8 +97,8 @@ const configurations: ConfigTest[] = [
       port: 465,
       secure: true,
       auth: {
-        user: "noreply@detechnics.com",
-        pass: "tlJBkUgAcN{W"
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD
       }
     }
   },
@@ -93,8 +109,8 @@ const configurations: ConfigTest[] = [
       port: 587,
       secure: false,
       auth: {
-        user: "noreply@detechnics.com",
-        pass: "tlJBkUgAcN{W"
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD
       }
     }
   }
@@ -121,8 +137,8 @@ async function testConfiguration(name: string, config: SMTPConfig): Promise<Test
     // Send test email
     console.log("   ⏳ Sending test email...");
     const info = await transporter.sendMail({
-      from: '"Test Sender" <noreply@detechnics.com>',
-      to: "asmir.alams.com@gmail.com",
+      from: `"Test Sender" <${SMTP_USER}>`,
+      to: process.env.EMAIL_TO || "asmir.alams.com@gmail.com",
       subject: `Test Email - ${name}`,
       text: `This is a test email using configuration: ${name}\n\nHost: ${config.host}:${config.port}\nSecure: ${config.secure}\n\nTimestamp: ${new Date().toISOString()}`,
       html: `
