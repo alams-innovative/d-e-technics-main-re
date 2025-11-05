@@ -45,7 +45,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-210.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de210.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de210.pdf",
     availability: "Ready on Order",
     tags: [
       "DE-210",
@@ -91,7 +91,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-2000CW.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de2000cw.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de2000cw.pdf",
     availability: "Built to Order (custom request only)",
     tags: [
       "DE-2000CW",
@@ -138,7 +138,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-4050.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de4050.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de4050.pdf",
     availability: "Built to Order (custom request only)",
     tags: [
       "DE-4050",
@@ -187,7 +187,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-2050SS.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de2050ss.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de2050ss.pdf",
     availability: "Built to Order (custom request only)",
     tags: [
       "biscuit wrapping machine",
@@ -239,7 +239,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/de-2000.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de2000.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de2000.pdf",
     availability: "Built to Order (custom request only)",
     tags: [
       "horizontal form fill machine",
@@ -286,7 +286,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-300.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de300.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de300.pdf",
     availability: "Built to Order (custom request only)",
     tags: [
       "DE-300",
@@ -336,7 +336,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/Waffer-Lines.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636.pdf",
     availability: "Ready on Order",
     tags: ["wafer production line", "DEW-31", "wafer oven", "bakery machinery"],
     rating: 4.6,
@@ -374,7 +374,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/Waffer-Spreading-Machine.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_2A.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_2A.pdf",
     availability: "Ready on Order",
     tags: ["wafer spreading machine", "2A", "cream layer applicator", "wafer sandwich machine", "bakery machinery"],
     rating: 4.3,
@@ -412,7 +412,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/Mixer-Machine.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_6.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_6.pdf",
     availability: "Compatible with DEW Wafer Lines (31, 45, 63 plates)",
     tags: ["cream mixer", "wafer filling", "food mixer", "confectionery equipment", "bakery processing"],
     rating: 4.3,
@@ -450,7 +450,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/Holding-Tank.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_4.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_4.pdf",
     availability: "Compatible with DEW Wafer Lines (31, 45, 63 plates)",
     tags: ["batter tank", "wafer production", "food processing", "bakery equipment", "storage tank"],
     rating: 4.3,
@@ -488,7 +488,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/Waffer-Cutter.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_3.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_3.pdf",
     availability: "Compatible with DEW Wafer Lines (31, 45, 63 plates)",
     tags: ["wafer cutter", "sheet cutting machine", "confectionery equipment", "food processing", "wafer production"],
     rating: 4.3,
@@ -531,7 +531,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-200-HFFS.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de200.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de200.pdf",
     availability: "Ready on Order",
     tags: ["HFFS", "photo-electric eye", "inverter"],
     rating: 4.0,
@@ -570,7 +570,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-202.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de202.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de202.pdf",
     availability: "Ready on Order",
     tags: ["compact", "film control", "energy efficient"],
     rating: 4.2,
@@ -615,7 +615,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-310.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de310.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de310.pdf",
     availability: "Ready on Order",
     tags: ["on-edge", "biscuit", "accuracy"],
     rating: 4.0,
@@ -657,7 +657,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-800.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de800.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de800.pdf",
     availability: "Built to Order (custom request only)",
     tags: [
       "DE-800",
@@ -705,7 +705,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-BR.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/debr.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/debr.pdf",
     availability: "Built to Order (custom request only)",
     tags: ["batch roller", "candy rope former", "confectionery forming", "heated roller"],
     rating: 4.3,
@@ -748,7 +748,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-OW.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/deow.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/deow.pdf",
     availability: "Ready on Order",
     tags: ["DE-OW", "box overwrapper", "display box wrapping", "packaging automation"],
     rating: 4.2,
@@ -790,7 +790,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/DE-RS.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/ders.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/ders.pdf",
     availability: "Built to Order (custom request only)",
     tags: ["DE-RS", "rope sizer", "candy rope sizer", "confectionery rope adjuster", "precision rope sizing"],
     rating: 4.3,
@@ -824,7 +824,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/control-panel.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_1.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_1.pdf",
     availability: "Not available off-the-shelf – manufactured upon custom request",
     tags: [
       "CONTROL PANEL",
@@ -864,7 +864,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/Turbo-Mixer.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_5.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_5.pdf",
     availability: "Compatible with DEW Wafer Lines (31, 45, 63 plates)",
     tags: ["turbo mixer", "batter mixing", "food processing", "bakery equipment", "wafer line", "D.E. Technics"],
     rating: 4.3,
@@ -902,7 +902,7 @@ export const productData: ProductData[] = [
     images: [
       "/images/product/cream-spread-machine.jpg"
     ],
-    brochure: "https://0s8jq5whgaqcig6o.public.blob.vercel-storage.com/pdf/de3145636_2B.pdf",
+    brochure: "https://blob.detechnics.com/blob/pdfs/de3145636_2B.pdf",
     availability: "Optional (with DEW Wafer Lines)",
     tags: ["wafer spreading machine", "automatic wafer spreader", "2B", "wafer sandwich production", "cream roller"],
     rating: 5.0,
